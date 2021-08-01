@@ -2,7 +2,7 @@
 //                                                             //
 //                          pending                            //
 //                      meta saving logic                      //
-//               description keywords slug image               //
+//            title description keywords slug image            //
 //                                                             //
 // =========================================================== //
 export const metaTag = {
