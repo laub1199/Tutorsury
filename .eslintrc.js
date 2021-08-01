@@ -10,10 +10,21 @@ module.exports = {
   },
   extends: [
     '@nuxtjs',
-    'plugin:nuxt/recommended'
+    'plugin:nuxt/recommended',
+    'eslint:recommended',
+    'plugin:vue/recommended',
+    'standard'
   ],
   plugins: [
+    'vue',
+    'promise'
   ],
   // add your custom rules here
-  rules: {}
+  rules: {
+    'nuxt/no-cjs-in-config': 'off',
+    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'vue/max-attributes-per-line': 'off',
+    'vue/no-v-html': 'off'
+  }
 }
