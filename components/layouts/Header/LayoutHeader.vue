@@ -1,12 +1,15 @@
 <template>
   <div class="layout-header">
-    Header
+    <HeaderTop />
   </div>
 </template>
 
 <script>
 export default {
-  name: 'LayoutHeader'
+  name: 'LayoutHeader',
+  components: {
+    HeaderTop: () => import('~/components/layouts/Header/HeaderTop')
+  }
 }
 </script>
 
