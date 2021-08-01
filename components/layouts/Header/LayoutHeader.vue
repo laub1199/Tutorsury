@@ -1,6 +1,7 @@
 <template>
   <div class="layout-header">
     <HeaderTop />
+    <HeaderFilter />
   </div>
 </template>
 
@@ -8,7 +9,8 @@
 export default {
   name: 'LayoutHeader',
   components: {
-    HeaderTop: () => import('~/components/layouts/Header/HeaderTop')
+    HeaderTop: () => import('~/components/layouts/Header/HeaderTop'),
+    HeaderFilter: () => import('~/components/layouts/Header/HeaderFilter')
   }
 }
 </script>
