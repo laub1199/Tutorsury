@@ -3,5 +3,11 @@
 </template>
 
 <script>
-export default {}
+import { metaTag } from '~/mixin/meta_head'
+export default {
+  name: 'Index',
+  mixins: [
+    metaTag
+  ]
+}
 </script>

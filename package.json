@@ -1,6 +1,8 @@
 {
   "name": "Tutorsury",
   "version": "1.0.0",
+  "description": "Tutorsury Official Website",
+  "author": "Sennett Lau",
   "private": true,
   "scripts": {
     "dev": "nuxt",
