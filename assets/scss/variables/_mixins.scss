@@ -1,0 +1,11 @@
+@mixin row-gutter-width ($gutter-width) {
+  .row {
+    margin-left: -$gutter-width;
+    margin-right: -$gutter-width;
+  }
+  .row > .col,
+  .row > [class*="col-"] {
+    padding-right: $gutter-width;
+    padding-left: $gutter-width;
+  }
+}
