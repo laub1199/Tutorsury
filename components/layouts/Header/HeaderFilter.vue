@@ -376,58 +376,6 @@ export default {
   .subject-col {
     width: 21%;
     display: flex;
-    .levels {
-      width: 50%;
-      .level {
-        cursor: pointer;
-      }
-    }
-    .course-selector {
-      min-width: 78px;
-      width: 35%;
-      .choose-all {
-        padding-bottom: 1px;
-        width: 60px;
-        height: 24px;
-        display: flex;
-        border: 1.5px solid #FFFFFF;
-        border-radius: 50px;
-        justify-content: center;
-        align-items: center;
-        font-size: 15px;
-        line-height: 18px;
-        cursor: pointer;
-        &-chosen {
-          padding-bottom: 1px;
-          height: 24px;
-          display: flex;
-          border: 1.5px solid #FFFFFF;
-          border-radius: 50px;
-          justify-content: center;
-          align-items: center;
-          font-size: 15px;
-          line-height: 18px;
-          cursor: pointer;
-          width: 90px;
-        }
-      }
-      .courses {
-        max-height: 333px;
-        overflow-y: auto;
-        &::-webkit-scrollbar {
-          width: 3px;
-        }
-        &::-webkit-scrollbar-track {
-          background: #58636E;
-        }
-        &::-webkit-scrollbar-thumb {
-          background: #FFFFFF;
-        }
-        .course {
-          cursor: pointer;
-        }
-      }
-    }
   }
   .location-col {
     width: 21%;
