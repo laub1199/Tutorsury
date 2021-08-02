@@ -2,6 +2,7 @@
   <div class="">
     <IndexHero />
     <IndexMap />
+    <IndexInfo />
   </div>
 </template>
 
@@ -11,7 +12,8 @@ export default {
   name: 'Index',
   components: {
     IndexHero: () => import('~/components/pages/Index/IndexHero'),
-    IndexMap: () => import('~/components/pages/Index/IndexMap')
+    IndexMap: () => import('~/components/pages/Index/IndexMap'),
+    IndexInfo: () => import('~/components/pages/Index/IndexInfo')
   },
   mixins: [
     metaTag

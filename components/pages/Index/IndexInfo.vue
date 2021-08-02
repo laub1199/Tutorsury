@@ -1,14 +1,14 @@
 <template>
-  <div class="index-map">
-    <img src="/media/pages/index/map-bottom.svg" alt="bottom" width="1895" height="292" class="bottom">
+  <div class="index-info">
     <div class="content">
-      <div class="image-container">
-        <img src="/media/pages/index/map.png" alt="map" width="406" height="297">
-      </div>
       <div class="text">
-        <h2>資訊無界</h2>
-        <p>１８區補習社雲集</p>
-        <p>安坐家中瀏覽毫無難度</p>
+        <h2>一覽無遺</h2>
+        <p>補習資訊盡數列明</p>
+        <p>是否合適</p>
+        <p>一目了然</p>
+      </div>
+      <div class="image-container">
+        <img src="/media/pages/index/info.png" alt="info" width="468" height="323">
       </div>
     </div>
   </div>
@@ -21,33 +21,28 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.index-map {
+.index-info {
   display: flex;
   position: relative;
   padding-bottom: 5rem;
+  background-color: #A6EDE7;
+  flex-direction: row-reverse;
   @media screen and (min-width: 125rem) {
     height: calc(377px + (100vw - 2000px) / 10);
-  }
-  .bottom {
-    width: 100%;
-    position: absolute;
-    bottom: -2px;
-    left: 0;
   }
   .content {
     width: 52%;
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
     @media screen and (max-width: 85.5rem){
       width: 100%;
-      justify-content: flex-start;
+      justify-content: flex-end;
       padding-left: 1rem;
     }
     .text {
       display: flex;
       flex-direction: column;
       padding-top: 5rem;
-      min-width: 200px;
       h2 {
         color: #343A41;
         font-weight: bold;
@@ -59,6 +54,12 @@ export default {
         margin: 0;
         font-size: 25px;
         line-height: 29px;
+      }
+    }
+    .image-container {
+      margin-left: 5rem;
+      img {
+        transform: translateY(-10px);
       }
     }
   }
