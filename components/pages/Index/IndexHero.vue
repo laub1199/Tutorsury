@@ -29,6 +29,7 @@ export default {
   padding: 200px 0 300px;
   position: relative;
   height: 840px;
+  overflow: hidden;
   @media (max-width: 1490px) {
     height: 750px;
   }
@@ -36,13 +37,31 @@ export default {
     position: absolute;
     top: 0;
     right: 0;
-    max-width: 35%;
+    transition: all 0.5s;
+    @media screen and (max-width: 1660px) {
+      max-width: 35%;
+    }
+    @media screen and (max-width: 1200px) {
+      max-width: 30%;
+    }
   }
   .side-image {
     position: absolute;
     top: 64px;
     right: 50px;
-    max-width: 40%;
+    max-width: 100%;
+    transition: all 0.5s;
+    @media screen and (max-width: 1660px) {
+      max-width: 65%;
+    }
+    @media screen and (max-width: 1600px) {
+      top: 290px;
+      max-width: 50%;
+      right: 50px;
+    }
+    @media screen and (max-width: 1200px) {
+      max-width: 600px;
+    }
   }
   .bottom {
     position: absolute;
