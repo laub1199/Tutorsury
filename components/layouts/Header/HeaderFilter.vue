@@ -224,6 +224,14 @@
               />
             </client-only>
           </div>
+          <div class="filter-controls">
+            <div class="reset" @click="filterReset">
+              重設已選
+            </div>
+            <div class="search" @click="search">
+              <img src="/media/elements/search.svg" alt="search" width="30px" height="30px">
+            </div>
+          </div>
         </div>
         <div class="arrow-col" />
       </div>
@@ -396,6 +404,29 @@ export default {
           this.filterChosen.date.times = this.filterChosen.date.times.filter(time => time !== val)
         }
       }
+    },
+    filterReset () {
+      this.filterChosen = {
+        subject: {
+          level: '',
+          courses: []
+        },
+        location: {
+          area: '',
+          districts: []
+        },
+        date: {
+          day: '',
+          times: []
+        },
+        price: [0, 5000]
+      }
+    },
+    search () {
+      console.log('=====================================================')
+      console.log(this.filterChosen)
+      console.log('=====================================================')
+      // Todo: go to search page with queries
     }
   }
 }
@@ -449,6 +480,7 @@ export default {
       font-weight: bold;
       font-size: 18px;
       line-height: 21px;
+      flex-direction: row;
     }
   }
   .filter-menu {
@@ -540,9 +572,11 @@ export default {
   .price-col {
     width: 21%;
     display: flex;
+    flex-direction: column;
     .price-range-slider-container {
       width: 100%;
       padding-top: 3rem;
+      flex: 1;
       .price-range-slider {
         /deep/ .slider-tooltip {
           background-color: #212F3D;
@@ -565,6 +599,39 @@ export default {
           border-radius: 4px;
         }
       }
+    }
+    .filter-controls {
+      display: flex;
+      padding-bottom: 2rem;
+      justify-content: flex-end;
+      .reset {
+        cursor: pointer;
+        width: 118px;
+        height: 36px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #35424F;
+        color: #FFFFFF;
+        font-size: 22px;
+        line-height: 26px;
+        border-radius: 50px;
+        border: 1.5px solid #FFFFFF;
+        margin-right: 28px;
+        padding-bottom: 1px;
+      }
+      .search {
+        cursor: pointer;
+        width: 60px;
+        height: 36px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #47F1B4;
+        border-radius: 50px;
+        border: 1.5px solid #47F1B4;
+      }
+
     }
   }
   .arrow-col {
