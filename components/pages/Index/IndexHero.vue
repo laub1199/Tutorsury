@@ -30,7 +30,7 @@ export default {
   position: relative;
   height: 840px;
   overflow: hidden;
-  @media (max-width: 1490px) {
+  @media (max-width: 90rem) {
     height: 750px;
   }
   .background {
@@ -38,10 +38,10 @@ export default {
     top: 0;
     right: 0;
     transition: all 0.5s;
-    @media screen and (max-width: 1660px) {
+    @media screen and (max-width: 103.75rem) {
       max-width: 35%;
     }
-    @media screen and (max-width: 1200px) {
+    @media screen and (max-width: 75rem) {
       max-width: 30%;
     }
   }
@@ -51,15 +51,15 @@ export default {
     right: 50px;
     max-width: 100%;
     transition: all 0.5s;
-    @media screen and (max-width: 1660px) {
+    @media screen and (max-width: 103.75rem) {
       max-width: 65%;
     }
-    @media screen and (max-width: 1600px) {
+    @media screen and (max-width: 103.75rem) {
       top: 290px;
       max-width: 50%;
       right: 50px;
     }
-    @media screen and (max-width: 1200px) {
+    @media screen and (max-width: 75rem) {
       max-width: 600px;
     }
   }
