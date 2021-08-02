@@ -3,6 +3,7 @@
     <IndexHero />
     <IndexMap />
     <IndexInfo />
+    <IndexVideo />
   </div>
 </template>
 
@@ -13,7 +14,8 @@ export default {
   components: {
     IndexHero: () => import('~/components/pages/Index/IndexHero'),
     IndexMap: () => import('~/components/pages/Index/IndexMap'),
-    IndexInfo: () => import('~/components/pages/Index/IndexInfo')
+    IndexInfo: () => import('~/components/pages/Index/IndexInfo'),
+    IndexVideo: () => import('~/components/pages/Index/IndexVideo')
   },
   mixins: [
     metaTag

@@ -25,7 +25,7 @@ export default {
   display: flex;
   position: relative;
   padding-bottom: 5rem;
-  background-color: #A6EDE7;
+  background-color: $tutorsury-secondary;
   flex-direction: row-reverse;
   @media screen and (min-width: 125rem) {
     height: calc(377px + (100vw - 2000px) / 10);
