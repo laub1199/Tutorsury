@@ -17,8 +17,8 @@
         價錢
       </div>
       <div class="arrow-col">
-        <img src="/media/elements/arrow_down.svg" alt="arrow down" width="24px" height="10px" class="arrow arrow-down" @click="toggleFilter">
-        <img src="/media/elements/arrow_up.svg" alt="arrow down" width="24px" height="10px" class="arrow arrow-up" @click="toggleFilter">
+        <img src="/media/elements/arrow_down.svg" alt="arrow down" width="16px" height="10px" class="arrow arrow-down" @click="toggleFilter">
+        <img src="/media/elements/arrow_up.svg" alt="arrow down" width="16px" height="10px" class="arrow arrow-up" @click="toggleFilter">
       </div>
     </div>
     <div class="filter-menu">
@@ -44,8 +44,8 @@
                 >
                   {{ `（已全選）` }}
                 </span>
-                <img src="/media/elements/arrow_right.svg" alt="arrow right" width="6px" height="14px" class="arrow-right">
-                <img src="/media/elements/arrow_right_mint.svg" alt="arrow right" width="6px" height="14px" class="arrow-right-selected">
+                <img src="/media/elements/arrow_right.svg" alt="arrow right" width="8px" height="13px" class="arrow-right">
+                <img src="/media/elements/arrow_right_mint.svg" alt="arrow right" width="8px" height="13px" class="arrow-right-selected">
               </li>
             </ul>
           </div>
@@ -101,8 +101,8 @@
                 >
                   {{ `（已全選）` }}
                 </span>
-                <img src="/media/elements/arrow_right.svg" alt="arrow right" width="6px" height="14px" class="arrow-right">
-                <img src="/media/elements/arrow_right_mint.svg" alt="arrow right" width="6px" height="14px" class="arrow-right-selected">
+                <img src="/media/elements/arrow_right.svg" alt="arrow right" width="8px" height="13px" class="arrow-right">
+                <img src="/media/elements/arrow_right_mint.svg" alt="arrow right" width="8px" height="13px" class="arrow-right-selected">
               </li>
             </ul>
           </div>
@@ -172,8 +172,8 @@
                 >
                   {{ `（已全選）` }}
                 </span>
-                <img src="/media/elements/arrow_right.svg" alt="arrow right" width="6px" height="14px" class="arrow-right">
-                <img src="/media/elements/arrow_right_mint.svg" alt="arrow right" width="6px" height="14px" class="arrow-right-selected">
+                <img src="/media/elements/arrow_right.svg" alt="arrow right" width="8px" height="13px" class="arrow-right">
+                <img src="/media/elements/arrow_right_mint.svg" alt="arrow right" width="8px" height="13px" class="arrow-right-selected">
               </li>
             </ul>
           </div>
@@ -253,15 +253,15 @@ export default {
         },
         {
           level: '初中',
-          courses: ['全科', '功課輔導', '升班', '中文', '英文', '數學', '常識']
+          courses: ['中文', '英文', '通識', '地理', '中史', '世史', '經濟', 'BAFS', '英語文學']
         },
         {
           level: '高中',
-          courses: ['中文', '英文', '通常', '地理', '中史', '世史', '經濟', 'BAFS', '中國文學', 'TEMP1', 'TEMP2', 'TEMP3', 'TEMP4', 'TEMP5', 'TEMP6', 'TEMP7']
+          courses: ['中文', '英文', '通識', '地理', '中史', '世史', '經濟', 'BAFS', '中國文學', '英語文學', '旅款', '資訊及通訊科技']
         },
         {
           level: '中學數理',
-          courses: ['全科', '功課輔導', '升班', '中文', '英文', '數學', '常識']
+          courses: ['數學', 'M1', 'M2', '物理', '化學', '生物', '綜合科學（初中）', '綜合科學（高中）']
         }
       ],
       locations: [
@@ -271,11 +271,11 @@ export default {
         },
         {
           area: '九龍',
-          districts: ['油尖旺區', '深水埗區', '九龍城區', '黃大仙區', '觀塘區']
+          districts: ['深水埗區', '油尖旺區', '九龍城區', '黃大仙區', '觀塘區']
         },
         {
           area: '新界',
-          districts: ['葵青區', '荃灣區', '屯門區', '元朗區', '離島區', '北區', '大埔區', '沙田區', '西貢區']
+          districts: ['元朗區', '屯門區', '荃灣區', '葵青區', '離島區', '北區', '大埔區', '沙田區', '西貢區']
         }
       ],
       dates: [
