@@ -210,7 +210,20 @@
           </div>
         </div>
         <div class="price-col">
-          價錢
+          <div class="price-range-slider-container">
+            <client-only>
+              <vue-range-slider
+                v-model="filterChosen.price"
+                class="price-range-slider"
+                :min="rangeSlider.min"
+                :max="rangeSlider.max"
+                :formatter="rangeSlider.formatter"
+                :tooltip-merge="rangeSlider.tooltipMerge"
+                :enable-cross="rangeSlider.enableCross"
+                :dot-size="rangeSlider.dotSize"
+              />
+            </client-only>
+          </div>
         </div>
         <div class="arrow-col" />
       </div>
@@ -299,7 +312,17 @@ export default {
         date: {
           day: '',
           times: []
-        }
+        },
+        price: [0, 5000]
+      },
+      rangeSlider: {
+        min: 0,
+        max: 5000,
+        formatter: value => `$${value}`,
+        tooltipMerge: false,
+        enableCross: false,
+        height: 4,
+        dotSize: 19
       }
     }
   },
@@ -516,6 +539,33 @@ export default {
   }
   .price-col {
     width: 21%;
+    display: flex;
+    .price-range-slider-container {
+      width: 100%;
+      padding-top: 3rem;
+      .price-range-slider {
+        /deep/ .slider-tooltip {
+          background-color: #212F3D;
+          border-radius: 4px;
+          font-weight: 600;
+          line-height: 16px;
+          border: none;
+          &::before {
+            border: none;
+          }
+        }
+        /deep/ .slider-dot {
+          border: 2px solid #C1C9D2;
+        }
+        /deep/ .slider-process {
+          background-color: #47F1B4;
+        }
+        /deep/ .slider-piecewise {
+          background-color: #E3E8EE;
+          border-radius: 4px;
+        }
+      }
+    }
   }
   .arrow-col {
     width: 4%;
