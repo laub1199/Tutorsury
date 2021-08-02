@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <h1>Index</h1>
+    <IndexHero />
   </div>
 </template>
 
@@ -8,9 +8,11 @@
 import { metaTag } from '~/mixin/meta_head'
 export default {
   name: 'Index',
+  components: {
+    IndexHero: () => import('~/components/pages/Index/IndexHero')
+  },
   mixins: [
     metaTag
-  ],
-  layout: 'default'
+  ]
 }
 </script>
