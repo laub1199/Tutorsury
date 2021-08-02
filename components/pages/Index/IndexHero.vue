@@ -1,6 +1,6 @@
 <template>
   <div class="index-hero">
-    <img src="/media/pages/index/hero-background.png" alt="background" height="774" width="758" class="background">
+    <img src="/media/pages/index/hero-background.png" alt="background" height="717" width="759" class="background">
     <img src="/media/pages/index/hero-image.png" alt="side image" height="725" width="947" class="side-image">
     <img src="/media/pages/index/hero-bottom.svg" alt="bottom" height="254" width="1920" class="bottom">
     <div class="content">
