@@ -139,7 +139,75 @@
           </div>
         </div>
         <div class="time-col">
-          上課時間
+          <div class="layer-1">
+            <div
+              v-if="filterChosen.date.day"
+              class="choose-all"
+              @click="filterSelectionHandler('day', 'all')"
+            >
+              全選
+            </div>
+            <div
+              v-else
+              class="choose-all-chosen"
+              @click="filterSelectionHandler('day', 'all')"
+            >
+              取消全選
+            </div>
+            <ul class="list">
+              <li
+                v-for="(date, index) in dates"
+                :key="index" class="item"
+                :class="{ 'chosen' : date.day === filterChosen.date.day }"
+                @click="filterSelectionHandler('day', date.day)"
+              >
+                {{ date.day }}
+                <span
+                  v-if="date.day === filterChosen.date.day && filterChosen.date.times.length > 0 && filterChosen.date.times.length !== dates.find(date => date.day === filterChosen.date.day).times.length"
+                >
+                  {{ `（已選擇${filterChosen.date.times.length}項）` }}
+                </span>
+                <span
+                  v-else-if="filterChosen.date.day === '' || date.day === filterChosen.date.day && filterChosen.date.times.length === dates.find(date => date.day === filterChosen.date.day).times.length"
+                >
+                  {{ `（已全選）` }}
+                </span>
+                <img src="/media/elements/arrow_right.svg" alt="arrow right" width="6px" height="14px" class="arrow-right">
+                <img src="/media/elements/arrow_right_mint.svg" alt="arrow right" width="6px" height="14px" class="arrow-right-selected">
+              </li>
+            </ul>
+          </div>
+          <div class="layer-2">
+            <div
+              v-if="filterChosen.date.day && !(filterChosen.date.times && filterChosen.date.times.length === dates.find(date => date.day === filterChosen.date.day).times.length)"
+              class="choose-all"
+              @click="filterSelectionHandler('time', 'all')"
+            >
+              全選
+            </div>
+            <div
+              v-else-if="filterChosen.date.day"
+              class="choose-all-chosen"
+              @click="filterSelectionHandler('time', 'all')"
+            >
+              取消全選
+            </div>
+            <ul class="list">
+              <li v-if="!filterChosen.date.day">
+                請選取日子
+              </li>
+              <li
+                v-for="(time, index) in dates.find(date => date.day === filterChosen.date.day).times"
+                v-else
+                :key="index"
+                class="item"
+                :class="{ 'chosen' : filterChosen.date.times.includes(time) }"
+                @click="filterSelectionHandler('time', time)"
+              >
+                {{ time }}
+              </li>
+            </ul>
+          </div>
         </div>
         <div class="price-col">
           價錢
@@ -189,6 +257,36 @@ export default {
           districts: ['葵青區', '荃灣區', '屯門區', '元朗區', '離島區', '北區', '大埔區', '沙田區', '西貢區']
         }
       ],
+      dates: [
+        {
+          day: '星期一',
+          times: ['09:00 - 11:00', '12:00 - 15:00', '15:00 - 17:00', '18:00 - 21:00', '其他']
+        },
+        {
+          day: '星期二',
+          times: ['09:00 - 11:00', '12:00 - 15:00', '15:00 - 17:00', '18:00 - 21:00', '其他']
+        },
+        {
+          day: '星期三',
+          times: ['09:00 - 11:00', '12:00 - 15:00', '15:00 - 17:00', '18:00 - 21:00', '其他']
+        },
+        {
+          day: '星期四',
+          times: ['09:00 - 11:00', '12:00 - 15:00', '15:00 - 17:00', '18:00 - 21:00', '其他']
+        },
+        {
+          day: '星期五',
+          times: ['09:00 - 11:00', '12:00 - 15:00', '15:00 - 17:00', '18:00 - 21:00', '其他']
+        },
+        {
+          day: '星期六',
+          times: ['09:00 - 11:00', '12:00 - 15:00', '15:00 - 17:00', '18:00 - 21:00', '其他']
+        },
+        {
+          day: '星期日',
+          times: ['09:00 - 11:00', '12:00 - 15:00', '15:00 - 17:00', '18:00 - 21:00', '其他']
+        }
+      ],
       filterChosen: {
         subject: {
           level: '',
@@ -197,6 +295,10 @@ export default {
         location: {
           area: '',
           districts: []
+        },
+        date: {
+          day: '',
+          times: []
         }
       }
     }
@@ -244,7 +346,31 @@ export default {
         } else if (!this.filterChosen.location.districts.includes(val)) {
           this.filterChosen.location.districts.push(val)
         } else {
-          this.filterChosen.location.districts = this.filterChosen.location.districts.filter(location => location !== val)
+          this.filterChosen.location.districts = this.filterChosen.location.districts.filter(district => district !== val)
+        }
+      }
+
+      // dates
+      if (type === 'day') {
+        if (val === 'all') {
+          this.filterChosen.date.day = ''
+        } else {
+          if (this.filterChosen.date.day !== val) {
+            this.filterChosen.date.times = []
+          }
+          this.filterChosen.date.day = val
+        }
+      } else if (type === 'time') {
+        if (val === 'all') {
+          if (this.filterChosen.date.times.length === this.dates.find(date => date.day === this.filterChosen.date.day).times.length) {
+            this.filterChosen.date.times = []
+          } else {
+            this.filterChosen.date.times = this.dates.find(date => date.day === this.filterChosen.date.day).times
+          }
+        } else if (!this.filterChosen.date.times.includes(val)) {
+          this.filterChosen.date.times.push(val)
+        } else {
+          this.filterChosen.date.times = this.filterChosen.date.times.filter(time => time !== val)
         }
       }
     }
@@ -330,32 +456,6 @@ export default {
   .layer-2 {
     min-width: 78px;
     width: 35%;
-    .choose-all {
-      padding-bottom: 1px;
-      width: 60px;
-      height: 24px;
-      display: flex;
-      border: 1.5px solid #FFFFFF;
-      border-radius: 50px;
-      justify-content: center;
-      align-items: center;
-      font-size: 15px;
-      line-height: 18px;
-      cursor: pointer;
-      &-chosen {
-        padding-bottom: 1px;
-        height: 24px;
-        display: flex;
-        border: 1.5px solid #FFFFFF;
-        border-radius: 50px;
-        justify-content: center;
-        align-items: center;
-        font-size: 15px;
-        line-height: 18px;
-        cursor: pointer;
-        width: 90px;
-      }
-    }
     .list {
       max-height: 333px;
       overflow-y: auto;
@@ -373,6 +473,32 @@ export default {
       }
     }
   }
+  .choose-all {
+    padding-bottom: 1px;
+    width: 60px;
+    height: 24px;
+    display: flex;
+    border: 1.5px solid #FFFFFF;
+    border-radius: 50px;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    line-height: 18px;
+    cursor: pointer;
+    &-chosen {
+      padding-bottom: 1px;
+      height: 24px;
+      display: flex;
+      border: 1.5px solid #FFFFFF;
+      border-radius: 50px;
+      justify-content: center;
+      align-items: center;
+      font-size: 15px;
+      line-height: 18px;
+      cursor: pointer;
+      width: 90px;
+    }
+  }
   .subject-col {
     width: 21%;
     display: flex;
@@ -386,6 +512,7 @@ export default {
   }
   .time-col {
     width: 21%;
+    display: flex;
   }
   .price-col {
     width: 21%;
