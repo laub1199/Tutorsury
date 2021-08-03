@@ -66,6 +66,9 @@ export default {
     }
     .image-container {
       margin-left: 5rem;
+      @include media-breakpoint-down(sm) {
+        text-align: center;
+      }
       img {
         transform: translateY(-10px);
         @include media-breakpoint-down(sm) {

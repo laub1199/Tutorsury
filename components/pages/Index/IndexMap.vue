@@ -11,7 +11,7 @@
         <p>安坐家中瀏覽毫無難度</p>
       </div>
     </div>
-    <img src="/media/pages/index/map-bottom-mobile.svg" alt="bottom mobile" width="768" height="626" class="d-block d-md-none">
+    <img src="/media/pages/index/map-bottom-mobile.svg" alt="bottom mobile" width="768" height="626" class="d-block d-md-none bottom-mobile">
   </div>
 </template>
 
@@ -38,6 +38,11 @@ export default {
     position: absolute;
     bottom: -2px;
     left: 0;
+  }
+  .bottom-mobile {
+    @include media-breakpoint-down(sm) {
+      transform: translateY(2px);
+    }
   }
   .content {
     width: 52%;

@@ -15,7 +15,7 @@
       </div>
     </div>
     <div class="hero-bottom d-block d-md-none">
-      <img src="/media/pages/index/hero-middle-mobile.svg" alt="middle background" height="132" width="768" class="w-100">
+      <img src="/media/pages/index/hero-middle-mobile.svg" alt="middle background" height="132" width="768" class="w-100 middle-background">
       <div class="image-container">
         <img src="/media/pages/index/hero-image.png" alt="mobile image" height="725" width="947">
       </div>
@@ -147,6 +147,9 @@ export default {
     display: flex;
     background-color: $tutorsury-primary;
     flex-direction: column;
+    .middle-background {
+      transform: translateY(-2px);
+    }
     .image-container {
       width: 100%;
       text-align: center;
