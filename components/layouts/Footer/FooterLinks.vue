@@ -28,6 +28,10 @@ export default {
 .footer-links {
   width: 100%;
   display: flex;
+  @include media-breakpoint-down(sm) {
+    flex-direction: column;
+    margin-top: 3rem;
+  }
   a {
     flex: 1;
     color: #FFFFFF;

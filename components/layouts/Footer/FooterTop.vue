@@ -28,12 +28,21 @@ export default {
   border-bottom: 1px solid #343A41;
   display: flex;
   padding-bottom: 15px;
+  @include media-breakpoint-down(sm) {
+    flex-direction: column;
+  }
   .logo-container {
     display: flex;
-    flex: 1
+    flex: 1;
+    @include media-breakpoint-down(sm) {
+      justify-content: center;
+    }
   }
   .social-media {
     display: flex;
+    @include media-breakpoint-down(sm) {
+      justify-content: center;
+    }
   }
 }
 </style>

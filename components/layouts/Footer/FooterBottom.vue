@@ -1,5 +1,5 @@
 <template>
-  <div class="footer-bottom">
+  <div class="footer-bottom d-none d-md-flex justify-content-end">
     <p>
       © 2021 Tutorimap Ltd. 保留所有權利
     </p>
@@ -15,8 +15,6 @@ export default {
 <style lang="scss" scoped>
 .footer-bottom {
   padding: 30px 0 23px;
-  display: flex;
-  justify-content: flex-end;
   p {
     font-size: 18px;
     line-height: 21px;
