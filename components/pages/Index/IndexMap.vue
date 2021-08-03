@@ -1,6 +1,6 @@
 <template>
   <div class="index-map">
-    <img src="/media/pages/index/map-bottom.svg" alt="bottom" width="1895" height="292" class="bottom">
+    <img src="/media/pages/index/map-bottom.svg" alt="bottom" width="1895" height="292" class="bottom d-none d-md-block">
     <div class="content">
       <div class="image-container">
         <img src="/media/pages/index/map.png" alt="map" width="406" height="297">
@@ -11,6 +11,7 @@
         <p>安坐家中瀏覽毫無難度</p>
       </div>
     </div>
+    <img src="/media/pages/index/map-bottom-mobile.svg" alt="bottom mobile" width="768" height="626" class="d-block d-md-none">
   </div>
 </template>
 
@@ -28,6 +29,10 @@ export default {
   @media screen and (min-width: 125rem) {
     height: calc(377px + (100vw - 2000px) / 10);
   }
+  @include media-breakpoint-down(sm) {
+    flex-direction: column;
+    padding-bottom: 0;
+  }
   .bottom {
     width: 100%;
     position: absolute;
@@ -42,6 +47,16 @@ export default {
       width: 100%;
       justify-content: flex-start;
       padding-left: 1rem;
+    }
+    @include media-breakpoint-down(sm) {
+      flex-direction: column;
+    }
+    .image-container {
+      @include media-breakpoint-down(sm) {
+        width: 100%;
+        text-align: center;
+        margin-top: 2rem;
+      }
     }
     .text {
       display: flex;
@@ -59,6 +74,11 @@ export default {
         margin: 0;
         font-size: 25px;
         line-height: 29px;
+      }
+      @include media-breakpoint-down(sm) {
+        width: 100%;
+        text-align: center;
+        padding: 0 0 2rem;
       }
     }
   }
