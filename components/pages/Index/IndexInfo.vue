@@ -39,10 +39,18 @@ export default {
       justify-content: flex-end;
       padding-left: 1rem;
     }
+    @include media-breakpoint-down(sm) {
+      flex-direction: column-reverse;
+      padding: 0 2rem 0;
+    }
     .text {
       display: flex;
       flex-direction: column;
       padding-top: 5rem;
+      @include media-breakpoint-down(sm) {
+        text-align: center;
+        padding-top: 0;
+      }
       h2 {
         color: #343A41;
         font-weight: bold;
@@ -60,6 +68,12 @@ export default {
       margin-left: 5rem;
       img {
         transform: translateY(-10px);
+        @include media-breakpoint-down(sm) {
+          transform: translate(13px, 0);
+        }
+      }
+      @include media-breakpoint-down(sm) {
+        margin: 3rem 0 0;
       }
     }
   }
