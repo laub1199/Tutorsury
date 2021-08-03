@@ -2,11 +2,11 @@
   <div class="index-video">
     <div class="container">
       <div class="row">
-        <div class="col-6">
+        <div class="col-12 col-md-6 mb-4 mb-md-0">
           <img src="/media/pages/index/video.png" alt="video" height="305" width="495">
         </div>
-        <div class="col-6">
-          <div class="text">
+        <div class="col-12 col-md-6">
+          <div class="text text-center text-md-left">
             <h2>體驗影片</h2>
             <p>免費觀看教學短片</p>
             <p>安坐家中試堂毫無難度</p>
@@ -43,6 +43,11 @@ export default {
       margin: 0;
       font-size: 25px;
       line-height: 29px;
+    }
+  }
+  img {
+    @include media-breakpoint-down(sm) {
+      transform: translate(13px, 0);
     }
   }
 }
