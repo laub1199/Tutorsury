@@ -242,121 +242,74 @@
 <script>
 export default {
   name: 'HeaderFilter',
-  data () {
-    return {
-      openFilter: false,
-      // dummy data
-      subjects: [
-        {
-          level: '小學',
-          courses: ['全科', '功課輔導', '升班', '中文', '英文', '數學', '常識']
-        },
-        {
-          level: '初中',
-          courses: ['中文', '英文', '通識', '地理', '中史', '世史', '經濟', 'BAFS', '英語文學']
-        },
-        {
-          level: '高中',
-          courses: ['中文', '英文', '通識', '地理', '中史', '世史', '經濟', 'BAFS', '中國文學', '英語文學', '旅款', '資訊及通訊科技']
-        },
-        {
-          level: '中學數理',
-          courses: ['數學', 'M1', 'M2', '物理', '化學', '生物', '綜合科學（初中）', '綜合科學（高中）']
-        }
-      ],
-      locations: [
-        {
-          area: '港島',
-          districts: ['中西區', '灣仔區', '東區', '南區']
-        },
-        {
-          area: '九龍',
-          districts: ['深水埗區', '油尖旺區', '九龍城區', '黃大仙區', '觀塘區']
-        },
-        {
-          area: '新界',
-          districts: ['元朗區', '屯門區', '荃灣區', '葵青區', '離島區', '北區', '大埔區', '沙田區', '西貢區']
-        }
-      ],
-      dates: [
-        {
-          day: '星期一',
-          times: ['09:00 - 11:00', '12:00 - 15:00', '15:00 - 17:00', '18:00 - 21:00', '其他']
-        },
-        {
-          day: '星期二',
-          times: ['09:00 - 11:00', '12:00 - 15:00', '15:00 - 17:00', '18:00 - 21:00', '其他']
-        },
-        {
-          day: '星期三',
-          times: ['09:00 - 11:00', '12:00 - 15:00', '15:00 - 17:00', '18:00 - 21:00', '其他']
-        },
-        {
-          day: '星期四',
-          times: ['09:00 - 11:00', '12:00 - 15:00', '15:00 - 17:00', '18:00 - 21:00', '其他']
-        },
-        {
-          day: '星期五',
-          times: ['09:00 - 11:00', '12:00 - 15:00', '15:00 - 17:00', '18:00 - 21:00', '其他']
-        },
-        {
-          day: '星期六',
-          times: ['09:00 - 11:00', '12:00 - 15:00', '15:00 - 17:00', '18:00 - 21:00', '其他']
-        },
-        {
-          day: '星期日',
-          times: ['09:00 - 11:00', '12:00 - 15:00', '15:00 - 17:00', '18:00 - 21:00', '其他']
-        }
-      ],
-      filterChosen: {
-        subject: {
-          level: '',
-          courses: []
-        },
-        location: {
-          area: '',
-          districts: []
-        },
-        date: {
-          day: '',
-          times: []
-        },
-        price: [0, 5000]
-      },
-      rangeSlider: {
-        min: 0,
-        max: 5000,
-        formatter: value => `$${value}`,
-        tooltipMerge: false,
-        enableCross: false,
-        height: 4,
-        dotSize: 19
-      }
+  computed: {
+    openFilter () {
+      return this.$store.getters['filter/openFilter']
+    },
+    subjects () {
+      return this.$store.getters['filter/subjects']
+    },
+    locations () {
+      return this.$store.getters['filter/locations']
+    },
+    dates () {
+      return this.$store.getters['filter/dates']
+    },
+    filterChosen () {
+      return this.$store.getters['filter/filterChosen']
+    },
+    rangeSlider () {
+      return this.$store.getters['filter/rangeSlider']
     }
   },
   methods: {
     toggleFilter () {
-      this.openFilter = !this.openFilter
+      this.$store.commit('filter/TOGGLE_FILTER')
     },
     filterSelectionHandler (type, val) {
       // subjects
       if (type === 'level') {
         if (this.filterChosen.subject.level !== val) {
-          this.filterChosen.subject.courses = []
+          this.$store.commit('filter/SET_FILTER', {
+            layer1: 'subject',
+            layer2: 'courses',
+            val: []
+          })
         }
-        this.filterChosen.subject.level = val
+        this.$store.commit('filter/SET_FILTER', {
+          layer1: 'subject',
+          layer2: 'level',
+          val
+        })
         return
       } else if (type === 'course') {
         if (val === 'all') {
           if (this.filterChosen.subject.courses.length === this.subjects.find(subject => subject.level === this.filterChosen.subject.level).courses.length) {
-            this.filterChosen.subject.courses = []
+            this.$store.commit('filter/SET_FILTER', {
+              layer1: 'subject',
+              layer2: 'courses',
+              val: []
+            })
           } else {
-            this.filterChosen.subject.courses = this.subjects.find(subject => subject.level === this.filterChosen.subject.level).courses
+            this.$store.commit('filter/SET_FILTER', {
+              layer1: 'subject',
+              layer2: 'courses',
+              val: this.subjects.find(subject => subject.level === this.filterChosen.subject.level).courses
+            })
           }
         } else if (!this.filterChosen.subject.courses.includes(val)) {
-          this.filterChosen.subject.courses.push(val)
+          this.$store.commit('filter/SET_FILTER', {
+            layer1: 'subject',
+            layer2: 'courses',
+            val,
+            isPush: true
+          })
         } else {
-          this.filterChosen.subject.courses = this.filterChosen.subject.courses.filter(course => course !== val)
+          this.$store.commit('filter/SET_FILTER', {
+            layer1: 'subject',
+            layer2: 'courses',
+            val: this.filterChosen.subject.courses.filter(course => course !== val)
+          })
         }
         return
       }
@@ -364,63 +317,103 @@ export default {
       // locations
       if (type === 'area') {
         if (this.filterChosen.location.area !== val) {
-          this.filterChosen.location.districts = []
+          this.$store.commit('filter/SET_FILTER', {
+            layer1: 'location',
+            layer2: 'districts',
+            val: []
+          })
         }
-        this.filterChosen.location.area = val
+        this.$store.commit('filter/SET_FILTER', {
+          layer1: 'location',
+          layer2: 'area',
+          val
+        })
       } else if (type === 'district') {
         if (val === 'all') {
           if (this.filterChosen.location.districts.length === this.locations.find(location => location.area === this.filterChosen.location.area).districts.length) {
-            this.filterChosen.location.districts = []
+            this.$store.commit('filter/SET_FILTER', {
+              layer1: 'location',
+              layer2: 'districts',
+              val: []
+            })
           } else {
-            this.filterChosen.location.districts = this.locations.find(location => location.area === this.filterChosen.location.area).districts
+            this.$store.commit('filter/SET_FILTER', {
+              layer1: 'location',
+              layer2: 'districts',
+              val: this.locations.find(location => location.area === this.filterChosen.location.area).districts
+            })
           }
         } else if (!this.filterChosen.location.districts.includes(val)) {
-          this.filterChosen.location.districts.push(val)
+          this.$store.commit('filter/SET_FILTER', {
+            layer1: 'location',
+            layer2: 'districts',
+            val,
+            isPush: true
+          })
         } else {
-          this.filterChosen.location.districts = this.filterChosen.location.districts.filter(district => district !== val)
+          this.$store.commit('filter/SET_FILTER', {
+            layer1: 'location',
+            layer2: 'districts',
+            val: this.filterChosen.location.districts.filter(district => district !== val)
+          })
         }
       }
 
       // dates
       if (type === 'day') {
         if (val === 'all') {
-          this.filterChosen.date.day = ''
+          this.$store.commit('filter/SET_FILTER', {
+            layer1: 'date',
+            layer2: 'day',
+            val: ''
+          })
         } else {
           if (this.filterChosen.date.day !== val) {
-            this.filterChosen.date.times = []
+            this.$store.commit('filter/SET_FILTER', {
+              layer1: 'date',
+              layer2: 'times',
+              val: []
+            })
           }
-          this.filterChosen.date.day = val
+          this.$store.commit('filter/SET_FILTER', {
+            layer1: 'date',
+            layer2: 'day',
+            val
+          })
         }
       } else if (type === 'time') {
         if (val === 'all') {
           if (this.filterChosen.date.times.length === this.dates.find(date => date.day === this.filterChosen.date.day).times.length) {
-            this.filterChosen.date.times = []
+            this.$store.commit('filter/SET_FILTER', {
+              layer1: 'date',
+              layer2: 'times',
+              val: []
+            })
           } else {
-            this.filterChosen.date.times = this.dates.find(date => date.day === this.filterChosen.date.day).times
+            this.$store.commit('filter/SET_FILTER', {
+              layer1: 'date',
+              layer2: 'times',
+              val: this.dates.find(date => date.day === this.filterChosen.date.day).times
+            })
           }
         } else if (!this.filterChosen.date.times.includes(val)) {
-          this.filterChosen.date.times.push(val)
+          this.$store.commit('filter/SET_FILTER', {
+            layer1: 'date',
+            layer2: 'times',
+            val,
+            isPush: true
+          })
         } else {
-          this.filterChosen.date.times = this.filterChosen.date.times.filter(time => time !== val)
+          this.$store.commit('filter/SET_FILTER', {
+            layer1: 'date',
+            layer2: 'times',
+            val: this.filterChosen.date.times.filter(time => time !== val)
+          })
         }
       }
     },
     filterReset () {
-      this.filterChosen = {
-        subject: {
-          level: '',
-          courses: []
-        },
-        location: {
-          area: '',
-          districts: []
-        },
-        date: {
-          day: '',
-          times: []
-        },
-        price: [0, 5000]
-      }
+      this.$store.commit('filter/RESET_FILTER')
     },
     search () {
       console.log('=====================================================')
