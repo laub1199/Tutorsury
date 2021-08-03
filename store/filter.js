@@ -78,15 +78,6 @@ export const state = () => ({
       times: []
     },
     price: [0, 5000]
-  },
-  rangeSlider: {
-    min: 0,
-    max: 5000,
-    formatter: value => `$${value}`,
-    tooltipMerge: false,
-    enableCross: false,
-    height: 4,
-    dotSize: 19
   }
 })
 
@@ -117,6 +108,9 @@ export const mutations = {
       },
       price: [0, 5000]
     }
+  },
+  UPDATE_PRICE (state, data) {
+    state.filterChosen.price = data.price
   }
 }
 
@@ -139,7 +133,7 @@ export const getters = {
   filterChosen (state) {
     return state.filterChosen
   },
-  rangeSlider (state) {
-    return state.rangeSlider
+  price (state) {
+    return state.filterChosen.price
   }
 }

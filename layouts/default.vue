@@ -28,8 +28,4 @@ main {
     flex: 1;
   }
 }
-.main-wrapper {
-  max-width: 1440px;
-  margin: auto;
-}
 </style>

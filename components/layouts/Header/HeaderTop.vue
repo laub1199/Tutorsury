@@ -1,9 +1,12 @@
 <template>
   <div class="header-top">
+    <div class="search-mobile d-flex d-md-none">
+      <img src="/media/elements/search.svg" alt="search" height="30" width="30" @click="toggleFilter">
+    </div>
     <div class="logo-container">
       <img src="/media/Tutorsury_logo.png" alt="Logo" width="156px" height="42px">
     </div>
-    <div class="search">
+    <div class="search d-none d-md-flex">
       <div class="search-bar">
         <form action="">
           <label for="search-input">
@@ -27,7 +30,18 @@
 
 <script>
 export default {
-  name: 'HeaderTop'
+  name: 'HeaderTop',
+  computed: {
+    openFilter () {
+      return this.$store.getters['filter/openFilter']
+    }
+  },
+  methods: {
+    toggleFilter () {
+      this.$store.commit('filter/TOGGLE_FILTER')
+      document.body.style.overflow = this.openFilter ? 'hidden' : 'auto'
+    }
+  }
 }
 </script>
 
@@ -37,15 +51,26 @@ export default {
   height: 70px;
   background-color: $tutorsury-dark;
   display: flex;
+  .search-mobile {
+    width: 15%;
+    padding-left: 2rem;
+    img {
+      cursor: pointer;
+    }
+  }
   .logo-container {
     width: 25%;
     display: flex;
     align-items: center;
     padding-left: 2rem;
+    @include media-breakpoint-down(sm) {
+      padding: 0;
+      width: 75%;
+      justify-content: center;
+    }
   }
   .search {
     flex: 1;
-    display: flex;
     .search-bar {
       flex: 1;
       display: flex;
