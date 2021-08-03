@@ -42,7 +42,6 @@ export default {
       this.$store.commit('filter/TOGGLE_FILTER')
     },
     filterSelectionHandler (type, val) {
-      console.log('fired')
       // subjects
       if (type === 'level') {
         if (this.filterChosen.subject.level !== val) {
