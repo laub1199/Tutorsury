@@ -1,7 +1,7 @@
 <template>
   <div class="index-hero">
-    <img src="/media/pages/index/hero-background.png" alt="background" height="717" width="759" class="background">
-    <img src="/media/pages/index/hero-image.png" alt="side image" height="725" width="947" class="side-image">
+    <img src="/media/pages/index/hero-background.png" alt="background" height="717" width="759" class="background d-none d-md-block">
+    <img src="/media/pages/index/hero-image.png" alt="side image" height="725" width="947" class="side-image d-none d-md-block">
     <img src="/media/pages/index/hero-bottom.svg" alt="bottom" height="254" width="1920" class="bottom">
     <div class="content">
       <h1 class="title">
@@ -12,6 +12,12 @@
       </h2>
       <div class="get-started">
         <p>立即開始</p>
+      </div>
+    </div>
+    <div class="hero-bottom d-block d-md-none">
+      <img src="/media/pages/index/hero-middle-mobile.svg" alt="middle background" height="132" width="768" class="w-100">
+      <div class="image-container">
+        <img src="/media/pages/index/hero-image.png" alt="mobile image" height="725" width="947">
       </div>
     </div>
   </div>
@@ -32,6 +38,10 @@ export default {
   overflow: hidden;
   @media (max-width: 90rem) {
     height: 750px;
+  }
+  @include media-breakpoint-down(sm) {
+    height: auto;
+    padding: 3rem 0 0;
   }
   .background {
     position: absolute;
@@ -68,18 +78,28 @@ export default {
     bottom: -2px;
     left: 0;
     width: 100%;
+    z-index: 2;
   }
   .content {
     display: flex;
     flex-direction: column;
     max-width: 1440px;
     margin: 0 auto;
+    @include media-breakpoint-down(sm) {
+      padding: 0 2rem 2rem;
+    ;
+    }
     .title {
       color: #FFFFFF;
       font-weight: bold;
       font-size: 72px;
       line-height: 84px;
       margin-bottom: 1rem;
+      @include media-breakpoint-down(sm) {
+        text-align: center;
+        font-size: 50px;
+        line-height: 65px;
+      }
     }
     .subtitle {
       color: #FFFFFF;
@@ -87,6 +107,11 @@ export default {
       font-size: 40px;
       line-height: 47px;
       margin-bottom: 3rem;
+      @include media-breakpoint-down(sm) {
+        text-align: center;
+        font-size: 24px;
+        line-height: 28px;
+      }
     }
     .get-started {
       cursor: pointer;
@@ -97,6 +122,11 @@ export default {
       justify-content: center;
       align-items: center;
       border-radius: 5px;
+      @include media-breakpoint-down(sm) {
+        margin: auto;
+        width: 100%;
+        height: 48px;
+      }
       p {
         color: #FFFFFF;
         font-weight: bold;
@@ -104,6 +134,25 @@ export default {
         line-height: 20px;
         margin: 0;
         padding-bottom: 5px;
+        @include media-breakpoint-down(sm) {
+          font-size: 20px;
+          line-height: 23px;
+        }
+      }
+    }
+  }
+  .hero-bottom {
+    position: relative;
+    width: 100%;
+    display: flex;
+    background-color: $tutorsury-primary;
+    flex-direction: column;
+    .image-container {
+      width: 100%;
+      text-align: center;
+      img {
+        max-width: 80%;
+        margin: auto;
       }
     }
   }
