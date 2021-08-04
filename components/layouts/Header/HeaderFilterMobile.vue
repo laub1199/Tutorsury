@@ -189,6 +189,16 @@
         </div>
       </div>
     </div>
+    <div class="filter-controls">
+      <div class="inner">
+        <div class="reset-btn"  @click="filterReset">
+          重設已選
+        </div>
+        <div class="search-btn" @click="search">
+          搜尋
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -481,6 +491,46 @@ export default {
         span {
           margin: 0 10px;
         }
+      }
+    }
+  }
+  .filter-controls {
+    padding: 22px 0;
+    .inner {
+      width: 80%;
+      height: 31px;
+      display: flex;
+      justify-content: flex-end;
+      margin: 0 auto;
+      .reset-btn {
+        width: 102px;
+        height: 28px;
+        border: 1.5px solid #FFFFFF;
+        border-radius: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-bottom: 1px;
+        color: #FFFFFF;
+        font-weight: bold;
+        font-size: 18px;
+        line-height: 21px;
+      }
+      .search-btn {
+        width: 66px;
+        height: 28px;
+        border: 1.5px solid $tutorsury-primary;
+        border-radius: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #FFFFFF;
+        padding-bottom: 1px;
+        background: $tutorsury-primary;
+        font-weight: bold;
+        font-size: 18px;
+        line-height: 21px;
+        margin-left: 22px;
       }
     }
   }
