@@ -155,6 +155,40 @@
         </div>
       </div>
     </div>
+    <div v-else-if="activeTab === 3" class="price-panel panel">
+      <div class="price-control-container">
+        <div class="inner">
+          <div class="reset">
+            重設價錢範圍
+          </div>
+        </div>
+      </div>
+      <div class="price-range-slider-container">
+        <client-only>
+          <vue-range-slider
+            v-model="priceRange"
+            class="price-range-slider"
+            :min="rangeSlider.min"
+            :max="rangeSlider.max"
+            :formatter="rangeSlider.formatter"
+            :tooltip-merge="rangeSlider.tooltipMerge"
+            :enable-cross="rangeSlider.enableCross"
+            :dot-size="rangeSlider.dotSize"
+          />
+        </client-only>
+      </div>
+      <div class="price-range-input-container">
+        <div class="inner">
+          <label for="price-start">
+            <input id="price-start" v-model="priceRange[0]" type="text">
+          </label>
+          <span>至</span>
+          <label for="price-end">
+            <input id="price-end" v-model="priceRange[1]" type="text">
+          </label>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -368,6 +402,84 @@ export default {
         }
         .layer-2 {
           height: auto;
+        }
+      }
+    }
+    .price-control-container {
+      height: 54px;
+      background-color: #35424F;
+      .inner {
+        height: 54px;
+        width: 80%;
+        padding: 10px 0;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        margin: 0 auto;
+        .reset {
+          width: 120px;
+          height: 24px;
+          border: 1.5px solid #FFFFFF;
+          border-radius: 50px;
+          font-size: 15px;
+          line-height: 18px;
+          color: #FFFFFF;
+          text-align: center;
+        }
+      }
+    }
+    .price-range-slider-container {
+      width: 70%;
+      padding-top: 4rem;
+      flex: 1;
+      margin: 0 auto;
+      .price-range-slider {
+        /deep/ .slider-tooltip {
+          background-color: #212F3D;
+          border-radius: 4px;
+          font-weight: 600;
+          line-height: 16px;
+          border: none;
+          &::before {
+            border: none;
+          }
+        }
+        /deep/ .slider-dot {
+          border: 2px solid #C1C9D2;
+        }
+        /deep/ .slider-process {
+          background-color: #47F1B4;
+        }
+        /deep/ .slider-piecewise {
+          background-color: #E3E8EE;
+          border-radius: 4px;
+        }
+      }
+    }
+    .price-range-input-container {
+      width: 100%;
+      height: 56px;
+      margin-top: 1rem;
+      .inner {
+        width: 100%;
+        padding: 10px 0 20px;
+        height: 56px;
+        display: flex;
+        justify-content: center;
+        color: white;
+        input {
+          width: 70px;
+          height: 26px;
+          background: #343A41;
+          border: 1px solid #67717B;
+          border-radius: 5px;
+          color: white;
+          font-size: 15px;
+          line-height: 18px;
+          padding-left: 0.5rem;
+        }
+        span {
+          margin: 0 10px;
         }
       }
     }
