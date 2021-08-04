@@ -111,6 +111,50 @@
         </div>
       </div>
     </div>
+    <div v-else-if="activeTab === 2" class="date-panel panel">
+      <div v-for="(date, index) in dates" :key="index" class="layers-container" @click="layerToggle({ e: $event}, 'day', date.day)">
+        <div class="layer-1">
+          <div class="inner">
+            <div class="left">
+              {{ date.day }}
+              <img src="/media/elements/arrow_down.svg" alt="arrow down" height="8" width="13" class="arrow arrow-down">
+              <img src="/media/elements/arrow_up.svg" alt="arrow up" height="8" width="13" class="arrow arrow-up">
+            </div>
+            <div class="right">
+              <span
+                v-if="filterChosen.date.day === '' || filterChosen.date.day === date.day && filterChosen.date.times.length === dates.find(date => date.day === filterChosen.date.day).times.length"
+                class="choose-all-chosen"
+                @click.stop
+                @click="layerToggle({ type: 'day', val: date.day, e: $event }, 'time', 'all')"
+              >
+                取消全選
+              </span>
+              <span
+                v-else
+                class="choose-all"
+                @click.stop
+                @click="layerToggle({ type: 'day', val: date.day, e: $event }, 'time', 'all')"
+              >
+                全選
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="layer-2">
+          <div class="inner">
+            <div
+              v-for="(time, indexTime) in date.times"
+              :key="indexTime"
+              :class="{ 'chosen' : date.day === filterChosen.date.day && filterChosen.date.times.includes(time) }"
+              @click.stop
+              @click="layerToggle(null, 'time', time)"
+            >
+              {{ time }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
