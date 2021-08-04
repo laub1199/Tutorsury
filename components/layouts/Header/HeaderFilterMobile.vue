@@ -23,7 +23,7 @@
         <span />
       </div>
     </div>
-    <div class="subject-panel panel">
+    <div v-if="activeTab === 0" class="subject-panel panel">
       <div v-for="(subject, index) in subjects" :key="index" class="layers-container" @click="layerToggle({ e: $event}, 'level', subject.level)">
         <div class="layer-1">
           <div class="inner">
@@ -62,6 +62,50 @@
               @click="layerToggle(null, 'course', course)"
             >
               {{ course }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div v-else-if="activeTab === 1" class="location-panel panel">
+      <div v-for="(location, index) in locations" :key="index" class="layers-container" @click="layerToggle({ e: $event}, 'area', location.area)">
+        <div class="layer-1">
+          <div class="inner">
+            <div class="left">
+              {{ location.area }}
+              <img src="/media/elements/arrow_down.svg" alt="arrow down" height="8" width="13" class="arrow arrow-down">
+              <img src="/media/elements/arrow_up.svg" alt="arrow up" height="8" width="13" class="arrow arrow-up">
+            </div>
+            <div class="right">
+              <span
+                v-if="filterChosen.location.area === location.area && filterChosen.location.districts.length === locations.find(location => location.area === filterChosen.location.area).districts.length"
+                class="choose-all-chosen"
+                @click.stop
+                @click="layerToggle({ type: 'area', val: location.area, e: $event }, 'district', 'all')"
+              >
+                取消全選
+              </span>
+              <span
+                v-else
+                class="choose-all"
+                @click.stop
+                @click="layerToggle({ type: 'area', val: location.area, e: $event }, 'district', 'all')"
+              >
+                全選
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="layer-2">
+          <div class="inner">
+            <div
+              v-for="(district, indexDistrict) in location.districts"
+              :key="indexDistrict"
+              :class="{ 'chosen' : location.area === filterChosen.location.area && filterChosen.location.districts.includes(district) }"
+              @click.stop
+              @click="layerToggle(null, 'district', district)"
+            >
+              {{ district }}
             </div>
           </div>
         </div>
