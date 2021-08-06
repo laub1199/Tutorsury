@@ -211,18 +211,17 @@
         </div>
         <div class="price-col">
           <div class="price-range-slider-container">
-            <client-only>
-              <vue-range-slider
-                v-model="priceRange"
-                class="price-range-slider"
-                :min="rangeSlider.min"
-                :max="rangeSlider.max"
-                :formatter="rangeSlider.formatter"
-                :tooltip-merge="rangeSlider.tooltipMerge"
-                :enable-cross="rangeSlider.enableCross"
-                :dot-size="rangeSlider.dotSize"
-              />
-            </client-only>
+            <vue-slider
+              v-model="priceRange"
+              :min="rangeSlider.min"
+              :max="rangeSlider.max"
+              :tooltip="rangeSlider.tooltip"
+              :tooltip-formatter="rangeSlider.formatter"
+              :enable-cross="rangeSlider.enableCross"
+              :height="rangeSlider.height"
+              :dot-size="rangeSlider.dotSize"
+              class="price-range-slider"
+            />
           </div>
           <div class="filter-controls">
             <div class="reset" @click="filterReset">
@@ -393,23 +392,23 @@ export default {
       padding-top: 3rem;
       flex: 1;
       .price-range-slider {
-        /deep/ .slider-tooltip {
+        /deep/ .vue-slider-dot-tooltip-inner {
           background-color: #212F3D;
           border-radius: 4px;
           font-weight: 600;
           line-height: 16px;
           border: none;
-          &::before {
+          &::after {
             border: none;
           }
         }
-        /deep/ .slider-dot {
+        /deep/ .vue-slider-dot-handle {
           border: 2px solid #C1C9D2;
         }
-        /deep/ .slider-process {
+        /deep/ .vue-slider-process {
           background-color: #47F1B4;
         }
-        /deep/ .slider-piecewise {
+        /deep/ .vue-slider-rail {
           background-color: #E3E8EE;
           border-radius: 4px;
         }

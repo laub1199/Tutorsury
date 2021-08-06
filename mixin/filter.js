@@ -4,8 +4,8 @@ export default {
       rangeSlider: {
         min: 0,
         max: 5000,
+        tooltip: 'always',
         formatter: value => `$${value}`,
-        tooltipMerge: false,
         enableCross: false,
         height: 4,
         dotSize: 19
