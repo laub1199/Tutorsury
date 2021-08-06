@@ -191,7 +191,7 @@
     </div>
     <div class="filter-controls">
       <div class="inner">
-        <div class="reset-btn"  @click="filterReset">
+        <div class="reset-btn" @click="filterReset">
           重設已選
         </div>
         <div class="search-btn" @click="search">

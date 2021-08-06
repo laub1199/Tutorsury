@@ -26,6 +26,9 @@ main {
   #wrapper {
     margin-top: 107px;
     flex: 1;
+    @include media-breakpoint-down(sm) {
+      margin-top: 70px;
+    }
   }
 }
 </style>
