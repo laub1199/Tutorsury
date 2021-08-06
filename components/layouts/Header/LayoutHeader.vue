@@ -19,5 +19,9 @@ export default {
 
 <style lang="scss" scoped>
 .layout-header {
+  position: fixed;
+  width: 100%;
+  z-index: 500;
+  top: 0;
 }
 </style>

@@ -24,7 +24,7 @@ main {
   display: flex;
   flex-direction: column;
   #wrapper {
-    // add margin-top for header;
+    margin-top: 107px;
     flex: 1;
   }
 }
