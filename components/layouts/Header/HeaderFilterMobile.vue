@@ -1,5 +1,5 @@
 <template>
-  <div class="header-filter-mobile d-flex d-md-none" :class="{ 'open-filter' : openFilter }">
+  <div class="header-filter-mobile" :class="{ 'open-filter' : openFilter }">
     <div class="search">
       <label for="search-bar-mobile">
         <input id="search-bar-mobile" v-model="searchText" type="text" placeholder="輸入關鍵字">
@@ -208,7 +208,6 @@ export default {
   mixins: [filterMixin],
   data () {
     return {
-      searchText: '',
       activeTab: 0
     }
   },
@@ -246,8 +245,11 @@ export default {
   height: 0;
   overflow: hidden;
   background-color: #212F3D;
-  display: flex;
+  display: none;
   flex-direction: column;
+  @media screen and (max-width: 1152px){
+    display: flex;
+  }
   &.open-filter {
     height: calc(100vh - 70px);
   }

@@ -35,6 +35,14 @@ export default {
       set (val) {
         this.$store.commit('filter/UPDATE_PRICE', { price: val })
       }
+    },
+    searchText: {
+      get () {
+        return this.$store.getters['filter/searchText']
+      },
+      set (val) {
+        this.$store.commit('filter/UPDATE_SEARCH_TEXT', { searchText: val })
+      }
     }
   },
   methods: {

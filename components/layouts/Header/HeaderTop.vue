@@ -1,16 +1,16 @@
 <template>
   <div class="header-top">
-    <div class="search-mobile d-flex d-md-none">
+    <div class="search-mobile">
       <img src="/media/elements/search.svg" alt="search" height="30" width="30" @click="toggleFilter">
     </div>
     <div class="logo-container">
       <img src="/media/Tutorsury_logo.png" alt="Logo" width="156px" height="42px">
     </div>
-    <div class="search d-none d-md-flex">
+    <div class="search">
       <div class="search-bar">
         <form action="">
           <label for="search-input">
-            <input id="search-input" type="text" placeholder="在此搜尋">
+            <input id="search-input" v-model="searchText" type="text" placeholder="在此搜尋" @click="extendFilter">
           </label>
         </form>
       </div>
@@ -34,12 +34,23 @@ export default {
   computed: {
     openFilter () {
       return this.$store.getters['filter/openFilter']
+    },
+    searchText: {
+      get () {
+        return this.$store.getters['filter/searchText']
+      },
+      set (val) {
+        this.$store.commit('filter/UPDATE_SEARCH_TEXT', { searchText: val })
+      }
     }
   },
   methods: {
     toggleFilter () {
       this.$store.commit('filter/TOGGLE_FILTER')
       document.body.style.overflow = this.openFilter ? 'hidden' : 'auto'
+    },
+    extendFilter () {
+      this.$store.commit('filter/TOGGLE_FILTER', { bool: true })
     }
   }
 }
@@ -54,6 +65,10 @@ export default {
   .search-mobile {
     width: 15%;
     padding-left: 2rem;
+    display: none;
+    @media screen and (max-width: 1152px){
+      display: flex;
+    }
     img {
       cursor: pointer;
     }
@@ -63,7 +78,7 @@ export default {
     display: flex;
     align-items: center;
     padding-left: 2rem;
-    @include media-breakpoint-down(sm) {
+    @media screen and (max-width: 1152px){
       padding: 0;
       width: 75%;
       justify-content: center;
@@ -71,6 +86,10 @@ export default {
   }
   .search {
     flex: 1;
+    display: flex;
+    @media screen and (max-width: 1152px){
+      display: none;
+    }
     .search-bar {
       flex: 1;
       display: flex;

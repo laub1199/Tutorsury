@@ -77,13 +77,18 @@ export const state = () => ({
       day: '',
       times: []
     },
-    price: [0, 5000]
+    price: [0, 5000],
+    searchText: ''
   }
 })
 
 export const mutations = {
-  TOGGLE_FILTER (state) {
-    state.openFilter = !state.openFilter
+  TOGGLE_FILTER (state, data) {
+    if (data) {
+      state.openFilter = data.bool
+    } else {
+      state.openFilter = !state.openFilter
+    }
   },
   SET_FILTER (state, data) {
     if (!data.isPush) {
@@ -111,6 +116,9 @@ export const mutations = {
   },
   UPDATE_PRICE (state, data) {
     state.filterChosen.price = data.price
+  },
+  UPDATE_SEARCH_TEXT (state, date) {
+    state.filterChosen.searchText = date.searchText
   }
 }
 
@@ -135,5 +143,8 @@ export const getters = {
   },
   price (state) {
     return state.filterChosen.price
+  },
+  searchText (state) {
+    return state.filterChosen.searchText
   }
 }

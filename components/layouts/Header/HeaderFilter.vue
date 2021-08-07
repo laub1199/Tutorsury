@@ -1,5 +1,5 @@
 <template>
-  <div class="header-filter d-none d-md-flex" :class="{ 'open-filter' : openFilter }">
+  <div class="header-filter" :class="{ 'open-filter' : openFilter }">
     <div class="filter-top">
       <div class="title-col">
         篩選器
@@ -33,19 +33,35 @@
                 :class="{ 'chosen' : subject.level === filterChosen.subject.level }"
                 @click="filterSelectionHandler('level', subject.level)"
               >
-                {{ subject.level }}
+                <span class="d-flex">
+                  {{ subject.level }}
+                  <span
+                    v-if="subject.level === filterChosen.subject.level && filterChosen.subject.courses.length > 0 && filterChosen.subject.courses.length !== subjects.find(subject => subject.level === filterChosen.subject.level).courses.length"
+                    class="chosen-num-display-inner"
+                  >
+                    {{ `（已選擇${filterChosen.subject.courses.length}項）` }}
+                  </span>
+                  <span
+                    v-else-if="subject.level === filterChosen.subject.level && filterChosen.subject.courses.length > 0 && filterChosen.subject.courses.length === subjects.find(subject => subject.level === filterChosen.subject.level).courses.length"
+                    class="chosen-num-display-inner"
+                  >
+                    {{ `（已全選）` }}
+                  </span>
+                  <img src="/media/elements/arrow_right.svg" alt="arrow right" width="8px" height="13px" class="arrow-right">
+                  <img src="/media/elements/arrow_right_mint.svg" alt="arrow right" width="8px" height="13px" class="arrow-right-selected">
+                </span>
                 <span
                   v-if="subject.level === filterChosen.subject.level && filterChosen.subject.courses.length > 0 && filterChosen.subject.courses.length !== subjects.find(subject => subject.level === filterChosen.subject.level).courses.length"
+                  class="chosen-num-display-outer"
                 >
                   {{ `（已選擇${filterChosen.subject.courses.length}項）` }}
                 </span>
                 <span
                   v-else-if="subject.level === filterChosen.subject.level && filterChosen.subject.courses.length > 0 && filterChosen.subject.courses.length === subjects.find(subject => subject.level === filterChosen.subject.level).courses.length"
+                  class="chosen-num-display-outer"
                 >
                   {{ `（已全選）` }}
                 </span>
-                <img src="/media/elements/arrow_right.svg" alt="arrow right" width="8px" height="13px" class="arrow-right">
-                <img src="/media/elements/arrow_right_mint.svg" alt="arrow right" width="8px" height="13px" class="arrow-right-selected">
               </li>
             </ul>
           </div>
@@ -90,19 +106,35 @@
                 :class="{ 'chosen' : location.area === filterChosen.location.area }"
                 @click="filterSelectionHandler('area', location.area)"
               >
-                {{ location.area }}
+                <span class="d-flex">
+                  {{ location.area }}
+                  <span
+                    v-if="location.area === filterChosen.location.area && filterChosen.location.districts.length > 0 && filterChosen.location.districts.length !== locations.find(location => location.area === filterChosen.location.area).districts.length"
+                    class="chosen-num-display-inner"
+                  >
+                    {{ `（已選擇${filterChosen.location.districts.length}項）` }}
+                  </span>
+                  <span
+                    v-else-if="location.area === filterChosen.location.area && filterChosen.location.districts.length > 0 && filterChosen.location.districts.length === locations.find(location => location.area === filterChosen.location.area).districts.length"
+                    class="chosen-num-display-inner"
+                  >
+                    {{ `（已全選）` }}
+                  </span>
+                  <img src="/media/elements/arrow_right.svg" alt="arrow right" width="8px" height="13px" class="arrow-right">
+                  <img src="/media/elements/arrow_right_mint.svg" alt="arrow right" width="8px" height="13px" class="arrow-right-selected">
+                </span>
                 <span
                   v-if="location.area === filterChosen.location.area && filterChosen.location.districts.length > 0 && filterChosen.location.districts.length !== locations.find(location => location.area === filterChosen.location.area).districts.length"
+                  class="chosen-num-display-outer"
                 >
                   {{ `（已選擇${filterChosen.location.districts.length}項）` }}
                 </span>
                 <span
                   v-else-if="location.area === filterChosen.location.area && filterChosen.location.districts.length > 0 && filterChosen.location.districts.length === locations.find(location => location.area === filterChosen.location.area).districts.length"
+                  class="chosen-num-display-outer"
                 >
                   {{ `（已全選）` }}
                 </span>
-                <img src="/media/elements/arrow_right.svg" alt="arrow right" width="8px" height="13px" class="arrow-right">
-                <img src="/media/elements/arrow_right_mint.svg" alt="arrow right" width="8px" height="13px" class="arrow-right-selected">
               </li>
             </ul>
           </div>
@@ -140,20 +172,6 @@
         </div>
         <div class="time-col">
           <div class="layer-1">
-            <div
-              v-if="filterChosen.date.day"
-              class="choose-all"
-              @click="filterSelectionHandler('day', 'all')"
-            >
-              全選
-            </div>
-            <div
-              v-else
-              class="choose-all-chosen"
-              @click="filterSelectionHandler('day', 'all')"
-            >
-              取消全選
-            </div>
             <ul class="list">
               <li
                 v-for="(date, index) in dates"
@@ -161,19 +179,35 @@
                 :class="{ 'chosen' : date.day === filterChosen.date.day }"
                 @click="filterSelectionHandler('day', date.day)"
               >
-                {{ date.day }}
+                <span class="d-flex">
+                  {{ date.day }}
+                  <span
+                    v-if="date.day === filterChosen.date.day && filterChosen.date.times.length > 0 && filterChosen.date.times.length !== dates.find(date => date.day === filterChosen.date.day).times.length"
+                    class="chosen-num-display-inner"
+                  >
+                    {{ `（已選擇${filterChosen.date.times.length}項）` }}
+                  </span>
+                  <span
+                    v-else-if="date.day === filterChosen.date.day && filterChosen.date.times.length === dates.find(date => date.day === filterChosen.date.day).times.length"
+                    class="chosen-num-display-inner"
+                  >
+                    {{ `（已全選）` }}
+                  </span>
+                  <img src="/media/elements/arrow_right.svg" alt="arrow right" width="8px" height="13px" class="arrow-right">
+                  <img src="/media/elements/arrow_right_mint.svg" alt="arrow right" width="8px" height="13px" class="arrow-right-selected">
+                </span>
                 <span
                   v-if="date.day === filterChosen.date.day && filterChosen.date.times.length > 0 && filterChosen.date.times.length !== dates.find(date => date.day === filterChosen.date.day).times.length"
+                  class="chosen-num-display-outer"
                 >
                   {{ `（已選擇${filterChosen.date.times.length}項）` }}
                 </span>
                 <span
-                  v-else-if="filterChosen.date.day === '' || date.day === filterChosen.date.day && filterChosen.date.times.length === dates.find(date => date.day === filterChosen.date.day).times.length"
+                  v-else-if="date.day === filterChosen.date.day && filterChosen.date.times.length === dates.find(date => date.day === filterChosen.date.day).times.length"
+                  class="chosen-num-display-outer"
                 >
                   {{ `（已全選）` }}
                 </span>
-                <img src="/media/elements/arrow_right.svg" alt="arrow right" width="8px" height="13px" class="arrow-right">
-                <img src="/media/elements/arrow_right_mint.svg" alt="arrow right" width="8px" height="13px" class="arrow-right-selected">
               </li>
             </ul>
           </div>
@@ -251,6 +285,9 @@ export default {
   width: 100%;
   display: flex;
   flex-direction: column;
+  @media screen and (max-width: 1152px){
+    display: none;
+  }
   ul {
     li {
       padding: 8px 15px 8px 0;
@@ -371,6 +408,24 @@ export default {
   .subject-col {
     width: 21%;
     display: flex;
+    .item {
+      display: flex;
+      @media screen and (max-width: 1551px) {
+        flex-direction: column;
+      }
+      .chosen-num-display-inner {
+        display: block;
+        @media screen and (max-width: 1551px) {
+          display: none;
+        }
+      }
+      .chosen-num-display-outer {
+        display: none;
+        @media screen and (max-width: 1551px) {
+          display: block;
+        }
+      }
+    }
   }
   .location-col {
     width: 21%;
@@ -378,13 +433,49 @@ export default {
     @include media-breakpoint-down(md) {
       width: 17%;
     }
+    .item {
+      display: flex;
+      @media screen and (max-width: 1551px) {
+        flex-direction: column;
+      }
+      .chosen-num-display-inner {
+        display: block;
+        @media screen and (max-width: 1551px) {
+          display: none;
+        }
+      }
+      .chosen-num-display-outer {
+        display: none;
+        @media screen and (max-width: 1551px) {
+          display: block;
+        }
+      }
+    }
   }
   .time-col {
-    width: 21%;
+    width: 25%;
     display: flex;
+    .item {
+      display: flex;
+      @media screen and (max-width: 1700px) {
+        flex-direction: column;
+      }
+      .chosen-num-display-inner {
+        display: block;
+        @media screen and (max-width: 1700px) {
+          display: none;
+        }
+      }
+      .chosen-num-display-outer {
+        display: none;
+        @media screen and (max-width: 1700px) {
+          display: block;
+        }
+      }
+    }
   }
   .price-col {
-    width: 21%;
+    width: 17%;
     display: flex;
     flex-direction: column;
     .price-range-slider-container {
