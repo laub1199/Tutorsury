@@ -4,7 +4,9 @@
       <img src="/media/elements/search.svg" alt="search" height="30" width="30" @click="toggleFilter">
     </div>
     <div class="logo-container">
-      <img src="/media/Tutorsury_logo.png" alt="Logo" width="156px" height="42px">
+      <nuxt-link to="/">
+        <img src="/media/Tutorsury_logo.png" alt="Logo" width="156px" height="42px">
+      </nuxt-link>
     </div>
     <div class="search">
       <div class="search-bar">

@@ -396,6 +396,7 @@ export default {
             margin: .3rem .2rem;
             border: 1px solid #212F3D;
             border-radius: 50px;
+            cursor: pointer;
             &.chosen {
               border: 1px solid #FFFFFF;
             }
