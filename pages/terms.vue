@@ -1,6 +1,8 @@
 <template>
   <div class="terms">
     <div class="hero">
+      <img src="/media/pages/statics/hero-left.png" alt="hero left" width="680" height="284" class="hero-background-left">
+      <img src="/media/pages/statics/hero-right.png" alt="hero right" width="656" height="284" class="hero-background-right">
       <h1 class="title">
         條款細則
       </h1>
@@ -38,7 +40,24 @@ export default {
     height: 300px;
     background-color: #212F3D;
     padding-top: 110px;
+    position: relative;
+    .hero-background-left {
+      position: absolute;
+      height: 100%;
+      top: 0;
+      left: 0;
+    }
+    .hero-background-right {
+      position: absolute;
+      height: 100%;
+      top: 0;
+      right: 0;
+    }
     .title {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       color: #FFFFFF;
       font-weight: bold;
       font-size: 60px;
