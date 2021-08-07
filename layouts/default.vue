@@ -26,7 +26,7 @@ main {
   #wrapper {
     margin-top: 107px;
     flex: 1;
-    @include media-breakpoint-down(sm) {
+    @media screen and (max-width: 1152px){
       margin-top: 70px;
     }
   }

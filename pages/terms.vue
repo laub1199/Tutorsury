@@ -46,12 +46,18 @@ export default {
       height: 100%;
       top: 0;
       left: 0;
+      @media screen and (max-width: 1340px){
+        display: none;
+      }
     }
     .hero-background-right {
       position: absolute;
       height: 100%;
       top: 0;
       right: 0;
+      @media screen and (max-width: 1340px){
+        display: none;
+      }
     }
     .title {
       position: absolute;
@@ -63,6 +69,7 @@ export default {
       font-size: 60px;
       line-height: 70px;
       text-align: center;
+      width: 242px;
     }
   }
   .content {

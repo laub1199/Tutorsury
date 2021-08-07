@@ -61,7 +61,7 @@
       <p class="font-weight-bold">
         若基於法律所需或為保障您、我們或他人的權利與安全之故，我們可能需要分享您的資料。
       </p>
-      <p class="font-weight-bold">
+      <p>
         如為法律、傳票或其他訴訟程序要求，或者我們基於下列情況合理認定有必要披露，我們可能會披露與您有關的資訊：(1) 針對疑似或實際非法活動進行調查、防範或採取行動，或協助政府執法機關；(2) 履行我們與您之間的協議；(3) 於任何第三方提出索賠或指控時進行調查及為自己辯護；(4) 保護「服務」的安全性或完整性（例如與其他面臨類似威脅的公司分享）；或 (5) 履行或保障 Tutorsury、Tutorsury「私補教師」、員工或他人的權利與安全。除非法律或法院諭令禁止或相關要求屬於緊急情況，我們會酌情適時通知「補習社」與其個人資料相關的法律要求。如果我們認為要求太過分、模糊或不合理，我們可能對此類要求提出異議，但不保證會對每項要求提出異議。
       </p>
 
@@ -127,12 +127,18 @@ export default {
       height: 100%;
       top: 0;
       left: 0;
+      @media screen and (max-width: 1340px){
+        display: none;
+      }
     }
     .hero-background-right {
       position: absolute;
       height: 100%;
       top: 0;
       right: 0;
+      @media screen and (max-width: 1340px){
+        display: none;
+      }
     }
     .title {
       position: absolute;
@@ -144,6 +150,7 @@ export default {
       font-size: 60px;
       line-height: 70px;
       text-align: center;
+      width: 242px;
     }
   }
   .content {
@@ -156,6 +163,9 @@ export default {
       text-align: center;
       margin-bottom: 30px;
       color: #343A41;
+      @include media-breakpoint-down(sm) {
+        font-size: 26px;
+      }
     }
     h3 {
       font-weight: bold;

@@ -14,8 +14,8 @@
             <h2 class="text-center">
               我們的聯絡方式
             </h2>
-            <div class="d-flex justify-content-around">
-              <div class="contact-method">
+            <div class="d-flex justify-content-around flex-column flex-md-row">
+              <div class="contact-method mb-4 mb-md-0">
                 <div class="image-container text-center">
                   <img src="/media/pages/statics/email.svg" alt="email" height="55" width="55" class="email-svg">
                 </div>
@@ -42,8 +42,12 @@
         </div>
         <div class="card-container">
           <div class="contact d-flex flex-column">
-            <h2 class="text-center">成為我們的補習社</h2>
-            <p class="text-center">獲得宣傳機會，助你找尋更多學生</p>
+            <h2 class="text-center">
+              成為我們的補習社
+            </h2>
+            <p class="text-center">
+              獲得宣傳機會，助你找尋更多學生
+            </p>
             <label for="center-name">
               <input id="center-name" type="text" placeholder="補習社名稱">
             </label>
@@ -84,12 +88,18 @@ export default {
       height: 100%;
       top: 0;
       left: 0;
+      @media screen and (max-width: 1340px){
+        display: none;
+      }
     }
     .hero-background-right {
       position: absolute;
       height: 100%;
       top: 0;
       right: 0;
+      @media screen and (max-width: 1340px){
+        display: none;
+      }
     }
     .title {
       position: absolute;
@@ -101,6 +111,7 @@ export default {
       font-size: 60px;
       line-height: 70px;
       text-align: center;
+      width: 242px;
     }
   }
   .content {
