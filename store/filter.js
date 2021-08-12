@@ -36,35 +36,35 @@ export const state = () => ({
     dates: [
       {
         day: '星期一',
-        times: ['09:00 - 11:00', '12:00 - 15:00', '15:00 - 17:00', '18:00 - 21:00', '其他']
+        times: ['09:00-11:00', '12:00-15:00', '15:00-17:00', '18:00-21:00', '其他']
       },
       {
         day: '星期二',
-        times: ['09:00 - 11:00', '12:00 - 15:00', '15:00 - 17:00', '18:00 - 21:00', '其他']
+        times: ['09:00-11:00', '12:00-15:00', '15:00-17:00', '18:00-21:00', '其他']
       },
       {
         day: '星期三',
-        times: ['09:00 - 11:00', '12:00 - 15:00', '15:00 - 17:00', '18:00 - 21:00', '其他']
+        times: ['09:00-11:00', '12:00-15:00', '15:00-17:00', '18:00-21:00', '其他']
       },
       {
         day: '星期四',
-        times: ['09:00 - 11:00', '12:00 - 15:00', '15:00 - 17:00', '18:00 - 21:00', '其他']
+        times: ['09:00-11:00', '12:00-15:00', '15:00-17:00', '18:00-21:00', '其他']
       },
       {
         day: '星期五',
-        times: ['09:00 - 11:00', '12:00 - 15:00', '15:00 - 17:00', '18:00 - 21:00', '其他']
+        times: ['09:00-11:00', '12:00-15:00', '15:00-17:00', '18:00-21:00', '其他']
       },
       {
         day: '星期六',
-        times: ['09:00 - 11:00', '12:00 - 15:00', '15:00 - 17:00', '18:00 - 21:00', '其他']
+        times: ['09:00-11:00', '12:00-15:00', '15:00-17:00', '18:00-21:00', '其他']
       },
       {
         day: '星期日',
-        times: ['09:00 - 11:00', '12:00 - 15:00', '15:00 - 17:00', '18:00 - 21:00', '其他']
+        times: ['09:00-11:00', '12:00-15:00', '15:00-17:00', '18:00-21:00', '其他']
       }
     ]
   },
-  filterChosen: {
+  filterChoice: {
     subject: {
       level: '',
       courses: []
@@ -92,13 +92,30 @@ export const mutations = {
   },
   SET_FILTER (state, data) {
     if (!data.isPush) {
-      state.filterChosen[data.layer1][data.layer2] = data.val
+      state.filterChoice[data.layer1][data.layer2] = data.val
     } else {
-      state.filterChosen[data.layer1][data.layer2].push(data.val)
+      state.filterChoice[data.layer1][data.layer2].push(data.val)
+    }
+  },
+  REMOVE_FILTER_ITEM (state, data) {
+    console.log('=====================================================')
+    console.log(data)
+    console.log('=====================================================')
+    if (!data.val) {
+      state.filterChoice[data.type] = ''
+      console.log('=====================================================')
+      console.log('delete search text')
+      console.log('=====================================================')
+    } else {
+      console.log('=====================================================')
+      console.log('filter: ' + data.val)
+      console.log(state.filterChoice[data.type.layer1][data.type.layer2].filter(layer2 => layer2 !== data.val))
+      console.log('=====================================================')
+      state.filterChoice[data.type.layer1][data.type.layer2] = state.filterChoice[data.type.layer1][data.type.layer2].filter(layer2 => layer2 !== data.val)
     }
   },
   RESET_FILTER (state) {
-    state.filterChosen = {
+    state.filterChoice = {
       subject: {
         level: '',
         courses: []
@@ -115,10 +132,10 @@ export const mutations = {
     }
   },
   UPDATE_PRICE (state, data) {
-    state.filterChosen.price = data.price
+    state.filterChoice.price = data.price
   },
   UPDATE_SEARCH_TEXT (state, date) {
-    state.filterChosen.searchText = date.searchText
+    state.filterChoice.searchText = date.searchText
   }
 }
 
@@ -138,13 +155,13 @@ export const getters = {
   dates (state) {
     return state.data.dates
   },
-  filterChosen (state) {
-    return state.filterChosen
+  filterChoice (state) {
+    return state.filterChoice
   },
   price (state) {
-    return state.filterChosen.price
+    return state.filterChoice.price
   },
   searchText (state) {
-    return state.filterChosen.searchText
+    return state.filterChoice.searchText
   }
 }

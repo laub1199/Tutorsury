@@ -10,11 +10,11 @@
     </div>
     <div class="search">
       <div class="search-bar">
-        <form action="">
+        <div class="input-container">
           <label for="search-input">
             <input id="search-input" v-model="searchText" type="text" placeholder="在此搜尋" @click="extendFilter">
           </label>
-        </form>
+        </div>
       </div>
       <div class="more-links">
         <a href="#">線上資源</a>
@@ -97,7 +97,7 @@ export default {
       display: flex;
       align-items: center;
       justify-content: center;
-      form {
+      .input-container {
         width: 95%;
         label {
           width: 100%;

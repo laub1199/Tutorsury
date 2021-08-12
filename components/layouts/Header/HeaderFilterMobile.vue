@@ -34,7 +34,7 @@
             </div>
             <div class="right">
               <span
-                v-if="filterChosen.subject.level === subject.level && filterChosen.subject.courses.length === subjects.find(subject => subject.level === filterChosen.subject.level).courses.length"
+                v-if="filterChoice.subject.level === subject.level && filterChoice.subject.courses.length === subjects.find(subject => subject.level === filterChoice.subject.level).courses.length"
                 class="choose-all-chosen"
                 @click.stop
                 @click="layerToggle({ type: 'level', val: subject.level, e: $event }, 'course', 'all')"
@@ -57,7 +57,7 @@
             <div
               v-for="(course, indexCourse) in subject.courses"
               :key="indexCourse"
-              :class="{ 'chosen' : subject.level === filterChosen.subject.level && filterChosen.subject.courses.includes(course) }"
+              :class="{ 'chosen' : subject.level === filterChoice.subject.level && filterChoice.subject.courses.includes(course) }"
               @click.stop
               @click="layerToggle(null, 'course', course)"
             >
@@ -78,7 +78,7 @@
             </div>
             <div class="right">
               <span
-                v-if="filterChosen.location.area === location.area && filterChosen.location.districts.length === locations.find(location => location.area === filterChosen.location.area).districts.length"
+                v-if="filterChoice.location.area === location.area && filterChoice.location.districts.length === locations.find(location => location.area === filterChoice.location.area).districts.length"
                 class="choose-all-chosen"
                 @click.stop
                 @click="layerToggle({ type: 'area', val: location.area, e: $event }, 'district', 'all')"
@@ -101,7 +101,7 @@
             <div
               v-for="(district, indexDistrict) in location.districts"
               :key="indexDistrict"
-              :class="{ 'chosen' : location.area === filterChosen.location.area && filterChosen.location.districts.includes(district) }"
+              :class="{ 'chosen' : location.area === filterChoice.location.area && filterChoice.location.districts.includes(district) }"
               @click.stop
               @click="layerToggle(null, 'district', district)"
             >
@@ -122,7 +122,7 @@
             </div>
             <div class="right">
               <span
-                v-if="filterChosen.date.day === '' || filterChosen.date.day === date.day && filterChosen.date.times.length === dates.find(date => date.day === filterChosen.date.day).times.length"
+                v-if="filterChoice.date.day === '' || filterChoice.date.day === date.day && filterChoice.date.times.length === dates.find(date => date.day === filterChoice.date.day).times.length"
                 class="choose-all-chosen"
                 @click.stop
                 @click="layerToggle({ type: 'day', val: date.day, e: $event }, 'time', 'all')"
@@ -145,7 +145,7 @@
             <div
               v-for="(time, indexTime) in date.times"
               :key="indexTime"
-              :class="{ 'chosen' : date.day === filterChosen.date.day && filterChosen.date.times.includes(time) }"
+              :class="{ 'chosen' : date.day === filterChoice.date.day && filterChoice.date.times.includes(time) }"
               @click.stop
               @click="layerToggle(null, 'time', time)"
             >
