@@ -136,8 +136,7 @@ export default {
       extendLayer: {
         subject: '',
         location: '',
-        date: '',
-        self: this
+        date: ''
       },
       filterColumns: [
         {

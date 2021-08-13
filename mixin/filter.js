@@ -49,7 +49,7 @@ export default {
     },
     filterSelectionHandler (type, key, keyVal, key2, val) {
       if (val === 'all') {
-        if ([...this.filterChoice[type].find(obj => obj[key] === keyVal)[key2]].length === [...this[type].find(obj => obj[key] === keyVal)[key2]].length) {
+        if ([...this.filterChoice[type].find(obj => obj[key] === keyVal)[key2]].length === [...this.filterDataWrapper[type].find(obj => obj[key] === keyVal)[key2]].length) {
           this.$store.commit('filter/SET_FILTER', {
             isReplace: true,
             type,
@@ -65,7 +65,7 @@ export default {
             key,
             keyVal,
             key2,
-            val: this[type].find(obj => obj[key] === keyVal)[key2]
+            val: this.filterDataWrapper[type].find(obj => obj[key] === keyVal)[key2]
           })
         }
       } else if (![...this.filterChoice[type].find(obj => obj[key] === keyVal)[key2]].includes(val)) {

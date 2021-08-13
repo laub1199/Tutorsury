@@ -6,154 +6,13 @@
       </label>
     </div>
     <div class="tabs">
-      <div class="tab" :class="{ 'active' : activeTab === 0 }" @click="activeTab = 0">
-        科目
-        <span />
-      </div>
-      <div class="tab" :class="{ 'active' : activeTab === 1 }" @click="activeTab = 1">
-        地區
-        <span />
-      </div>
-      <div class="tab" :class="{ 'active' : activeTab === 2 }" @click="activeTab = 2">
-        上課時間
-        <span />
-      </div>
-      <div class="tab" :class="{ 'active' : activeTab === 3 }" @click="activeTab = 3">
-        價錢
+      <div v-for="(tab, index) in tabs" :key="index" class="tab" :class="{ 'active' : activeTab === index }" @click="tabToggle(index)">
+        {{ tab }}
         <span />
       </div>
     </div>
-    <div v-if="activeTab === 0" class="subject-panel panel">
-      <div v-for="(subject, index) in subjects" :key="index" class="layers-container" @click="layerToggle({ e: $event}, 'level', subject.level)">
-        <div class="layer-1">
-          <div class="inner">
-            <div class="left">
-              {{ subject.level }}
-              <img src="/media/elements/arrow_down.svg" alt="arrow down" height="8" width="13" class="arrow arrow-down">
-              <img src="/media/elements/arrow_up.svg" alt="arrow up" height="8" width="13" class="arrow arrow-up">
-            </div>
-            <div class="right">
-              <span
-                v-if="filterChoice.subject.level === subject.level && filterChoice.subject.courses.length === subjects.find(subject => subject.level === filterChoice.subject.level).courses.length"
-                class="choose-all-chosen"
-                @click.stop
-                @click="layerToggle({ type: 'level', val: subject.level, e: $event }, 'course', 'all')"
-              >
-                取消全選
-              </span>
-              <span
-                v-else
-                class="choose-all"
-                @click.stop
-                @click="layerToggle({ type: 'level', val: subject.level, e: $event }, 'course', 'all')"
-              >
-                全選
-              </span>
-            </div>
-          </div>
-        </div>
-        <div class="layer-2">
-          <div class="inner">
-            <div
-              v-for="(course, indexCourse) in subject.courses"
-              :key="indexCourse"
-              :class="{ 'chosen' : subject.level === filterChoice.subject.level && filterChoice.subject.courses.includes(course) }"
-              @click.stop
-              @click="layerToggle(null, 'course', course)"
-            >
-              {{ course }}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div v-else-if="activeTab === 1" class="location-panel panel">
-      <div v-for="(location, index) in locations" :key="index" class="layers-container" @click="layerToggle({ e: $event}, 'area', location.area)">
-        <div class="layer-1">
-          <div class="inner">
-            <div class="left">
-              {{ location.area }}
-              <img src="/media/elements/arrow_down.svg" alt="arrow down" height="8" width="13" class="arrow arrow-down">
-              <img src="/media/elements/arrow_up.svg" alt="arrow up" height="8" width="13" class="arrow arrow-up">
-            </div>
-            <div class="right">
-              <span
-                v-if="filterChoice.location.area === location.area && filterChoice.location.districts.length === locations.find(location => location.area === filterChoice.location.area).districts.length"
-                class="choose-all-chosen"
-                @click.stop
-                @click="layerToggle({ type: 'area', val: location.area, e: $event }, 'district', 'all')"
-              >
-                取消全選
-              </span>
-              <span
-                v-else
-                class="choose-all"
-                @click.stop
-                @click="layerToggle({ type: 'area', val: location.area, e: $event }, 'district', 'all')"
-              >
-                全選
-              </span>
-            </div>
-          </div>
-        </div>
-        <div class="layer-2">
-          <div class="inner">
-            <div
-              v-for="(district, indexDistrict) in location.districts"
-              :key="indexDistrict"
-              :class="{ 'chosen' : location.area === filterChoice.location.area && filterChoice.location.districts.includes(district) }"
-              @click.stop
-              @click="layerToggle(null, 'district', district)"
-            >
-              {{ district }}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div v-else-if="activeTab === 2" class="date-panel panel">
-      <div v-for="(date, index) in dates" :key="index" class="layers-container" @click="layerToggle({ e: $event}, 'day', date.day)">
-        <div class="layer-1">
-          <div class="inner">
-            <div class="left">
-              {{ date.day }}
-              <img src="/media/elements/arrow_down.svg" alt="arrow down" height="8" width="13" class="arrow arrow-down">
-              <img src="/media/elements/arrow_up.svg" alt="arrow up" height="8" width="13" class="arrow arrow-up">
-            </div>
-            <div class="right">
-              <span
-                v-if="filterChoice.date.day === '' || filterChoice.date.day === date.day && filterChoice.date.times.length === dates.find(date => date.day === filterChoice.date.day).times.length"
-                class="choose-all-chosen"
-                @click.stop
-                @click="layerToggle({ type: 'day', val: date.day, e: $event }, 'time', 'all')"
-              >
-                取消全選
-              </span>
-              <span
-                v-else
-                class="choose-all"
-                @click.stop
-                @click="layerToggle({ type: 'day', val: date.day, e: $event }, 'time', 'all')"
-              >
-                全選
-              </span>
-            </div>
-          </div>
-        </div>
-        <div class="layer-2">
-          <div class="inner">
-            <div
-              v-for="(time, indexTime) in date.times"
-              :key="indexTime"
-              :class="{ 'chosen' : date.day === filterChoice.date.day && filterChoice.date.times.includes(time) }"
-              @click.stop
-              @click="layerToggle(null, 'time', time)"
-            >
-              {{ time }}
-            </div>
-          </div>
-        </div>
-      </div>
+    <div v-if="activeTab < 3" class="panel" :class="filterPanels[activeTab]">
+      <FilterPanelMobile :type="filterPanels[activeTab].type" :key1="filterPanels[activeTab].key1" :key2="filterPanels[activeTab].key2" :filter-data-wrapper="filterDataWrapper" :filter-choice="filterChoice" :filter-selection-handler="filterSelectionHandler" />
     </div>
     <div v-else-if="activeTab === 3" class="price-panel panel">
       <div class="price-control-container">
@@ -205,35 +64,41 @@
 import filterMixin from '~/mixin/filter'
 export default {
   name: 'HeaderFilterMobile',
+  components: {
+    FilterPanelMobile: () => import('~/components/layouts/Header/FilterPanelMobile')
+  },
   mixins: [filterMixin],
   data () {
     return {
-      activeTab: 0
+      activeTab: 0,
+      tabs: ['科目', '地區', '上課時間', '價錢'],
+      filterPanels: [
+        {
+          type: 'subjects',
+          key1: 'level',
+          key2: 'courses',
+          colClass: 'subject-panel'
+        },
+        {
+          type: 'locations',
+          key1: 'area',
+          key2: 'districts',
+          colClass: 'location-panel'
+        },
+        {
+          type: 'dates',
+          key1: 'day',
+          key2: 'times',
+          colClass: 'date-panel'
+        }
+      ]
     }
   },
   methods: {
-    async layerToggle (trigger, type, val) {
-      if (trigger && trigger.type && trigger.val && trigger.e) {
-        if (!trigger.e.target.closest('.layers-container').classList.contains('extend')) {
-          for (const layerContainer of document.querySelectorAll('.layers-container')) {
-            layerContainer.classList.remove('extend')
-          }
-          trigger.e.target.closest('.layers-container').classList.add('extend')
-        }
-        await this.filterSelectionHandler(trigger.type, trigger.val)
-        this.filterSelectionHandler(type, val)
-      } else if (trigger && trigger.e) {
-        if (trigger.e.target.closest('.layers-container').classList.contains('extend')) {
-          trigger.e.target.closest('.layers-container').classList.remove('extend')
-        } else {
-          for (const layerContainer of document.querySelectorAll('.layers-container')) {
-            layerContainer.classList.remove('extend')
-          }
-          trigger.e.target.closest('.layers-container').classList.add('extend')
-        }
-        this.filterSelectionHandler(type, val)
-      } else {
-        this.filterSelectionHandler(type, val)
+    tabToggle (index) {
+      this.activeTab = index
+      for (const layerContainer of document.querySelectorAll('.layers-container')) {
+        layerContainer.classList.remove('extend')
       }
     }
   }

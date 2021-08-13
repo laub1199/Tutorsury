@@ -2,7 +2,7 @@
   <div class="layout-header">
     <HeaderTop />
     <HeaderFilter />
-    <!--<HeaderFilterMobile />-->
+    <HeaderFilterMobile />
   </div>
 </template>
 
@@ -11,8 +11,8 @@ export default {
   name: 'LayoutHeader',
   components: {
     HeaderTop: () => import('~/components/layouts/Header/HeaderTop'),
-    HeaderFilter: () => import('~/components/layouts/Header/HeaderFilter')
-    // HeaderFilterMobile: () => import('~/components/layouts/Header/HeaderFilterMobile')
+    HeaderFilter: () => import('~/components/layouts/Header/HeaderFilter'),
+    HeaderFilterMobile: () => import('~/components/layouts/Header/HeaderFilterMobile')
   }
 }
 </script>
