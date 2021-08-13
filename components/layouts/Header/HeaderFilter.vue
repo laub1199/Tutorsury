@@ -24,25 +24,25 @@
     <div class="filter-menu">
       <div class="filter-menu-container">
         <div class="title-col" />
-        <div class="subject-col">
+        <div v-for="(col, index) in filterColumns" :key="index" :class="col.colClass">
           <div class="layer-1">
             <ul class="list">
               <li
-                v-for="(subject, index) in subjects"
-                :key="index" class="item"
-                :class="{ 'chosen' : subject.level === filterChoice.subject.level }"
-                @click="filterSelectionHandler('level', subject.level)"
+                v-for="(item, key1index) in filterDataWrapper[col.type]"
+                :key="key1index" class="item"
+                :class="{ 'chosen' : item[col.key1] === extendLayer[col.extendLayerKey] }"
+                @click="extendLayer[col.extendLayerKey] = item[col.key1]"
               >
                 <span class="d-flex">
-                  {{ subject.level }}
+                  {{ item[col.key1] }}
                   <span
-                    v-if="subject.level === filterChoice.subject.level && filterChoice.subject.courses.length > 0 && filterChoice.subject.courses.length !== subjects.find(subject => subject.level === filterChoice.subject.level).courses.length"
+                    v-if="filterChoice[col.type].find(obj => obj[col.key1] === item[col.key1])[col.key2].length > 0 && filterChoice[col.type].find(obj => obj[col.key1] === item[col.key1])[col.key2].length !== filterDataWrapper[col.type].find(obj => obj[col.key1] === item[col.key1])[col.key2].length"
                     class="chosen-num-display-inner"
                   >
-                    {{ `（已選擇${filterChoice.subject.courses.length}項）` }}
+                    {{ `（已選擇${filterChoice[col.type].find(obj => obj[col.key1] === item[col.key1])[col.key2].length}項）` }}
                   </span>
                   <span
-                    v-else-if="subject.level === filterChoice.subject.level && filterChoice.subject.courses.length > 0 && filterChoice.subject.courses.length === subjects.find(subject => subject.level === filterChoice.subject.level).courses.length"
+                    v-else-if="filterChoice[col.type].find(obj => obj[col.key1] === item[col.key1])[col.key2].length === filterDataWrapper[col.type].find(obj => obj[col.key1] === item[col.key1])[col.key2].length"
                     class="chosen-num-display-inner"
                   >
                     {{ `（已全選）` }}
@@ -51,13 +51,13 @@
                   <img src="/media/elements/arrow_right_mint.svg" alt="arrow right" width="8px" height="13px" class="arrow-right-selected">
                 </span>
                 <span
-                  v-if="subject.level === filterChoice.subject.level && filterChoice.subject.courses.length > 0 && filterChoice.subject.courses.length !== subjects.find(subject => subject.level === filterChoice.subject.level).courses.length"
+                  v-if="filterChoice[col.type].find(obj => obj[col.key1] === item[col.key1])[col.key2].length > 0 && filterChoice[col.type].find(obj => obj[col.key1] === item[col.key1])[col.key2].length !== filterDataWrapper[col.type].find(obj => obj[col.key1] === item[col.key1])[col.key2].length"
                   class="chosen-num-display-outer"
                 >
-                  {{ `（已選擇${filterChoice.subject.courses.length}項）` }}
+                  {{ `（已選擇${filterChoice[col.type].find(obj => obj[col.key1] === item[col.key1])[col.key2].length}項）` }}
                 </span>
                 <span
-                  v-else-if="subject.level === filterChoice.subject.level && filterChoice.subject.courses.length > 0 && filterChoice.subject.courses.length === subjects.find(subject => subject.level === filterChoice.subject.level).courses.length"
+                  v-else-if="filterChoice[col.type].find(obj => obj[col.key1] === item[col.key1])[col.key2].length === filterDataWrapper[col.type].find(obj => obj[col.key1] === item[col.key1])[col.key2].length"
                   class="chosen-num-display-outer"
                 >
                   {{ `（已全選）` }}
@@ -67,178 +67,32 @@
           </div>
           <div class="layer-2">
             <div
-              v-if="filterChoice.subject.level && !(filterChoice.subject.courses && filterChoice.subject.courses.length === subjects.find(subject => subject.level === filterChoice.subject.level).courses.length)"
+              v-if="extendLayer[col.extendLayerKey] && !(filterChoice[col.type].find(obj => obj[col.key1] === extendLayer[col.extendLayerKey])[col.key2].length === filterDataWrapper[col.type].find(obj => obj[col.key1] === extendLayer[col.extendLayerKey])[col.key2].length)"
               class="choose-all"
-              @click="filterSelectionHandler('course', 'all')"
+              @click="filterSelectionHandler(col.type, col.key1, extendLayer[col.extendLayerKey], col.key2, 'all')"
             >
               全選
             </div>
             <div
-              v-else-if="filterChoice.subject.level"
+              v-else-if="extendLayer[col.extendLayerKey]"
               class="choose-all-chosen"
-              @click="filterSelectionHandler('course', 'all')"
+              @click="filterSelectionHandler(col.type, col.key1, extendLayer[col.extendLayerKey], col.key2, 'all')"
             >
               取消全選
             </div>
             <ul class="list">
-              <li v-if="!filterChoice.subject.level">
+              <li v-if="!extendLayer[col.extendLayerKey]">
                 請選取級別
               </li>
               <li
-                v-for="(course, index) in subjects.find(subject => subject.level === filterChoice.subject.level).courses"
+                v-for="(item, key2index) in filterDataWrapper[col.type].find(obj => obj[col.key1] === extendLayer[col.extendLayerKey])[col.key2]"
                 v-else
-                :key="index"
+                :key="key2index"
                 class="item"
-                :class="{ 'chosen' : filterChoice.subject.courses.includes(course) }"
-                @click="filterSelectionHandler('course', course)"
+                :class="{ 'chosen' : filterChoice[col.type].find(obj => obj[col.key1] === extendLayer[col.extendLayerKey])[col.key2].includes(item) }"
+                @click="filterSelectionHandler(col.type, col.key1, extendLayer[col.extendLayerKey], col.key2, item)"
               >
-                {{ course }}
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="location-col">
-          <div class="layer-1">
-            <ul class="list">
-              <li
-                v-for="(location, index) in locations"
-                :key="index" class="item"
-                :class="{ 'chosen' : location.area === filterChoice.location.area }"
-                @click="filterSelectionHandler('area', location.area)"
-              >
-                <span class="d-flex">
-                  {{ location.area }}
-                  <span
-                    v-if="location.area === filterChoice.location.area && filterChoice.location.districts.length > 0 && filterChoice.location.districts.length !== locations.find(location => location.area === filterChoice.location.area).districts.length"
-                    class="chosen-num-display-inner"
-                  >
-                    {{ `（已選擇${filterChoice.location.districts.length}項）` }}
-                  </span>
-                  <span
-                    v-else-if="location.area === filterChoice.location.area && filterChoice.location.districts.length > 0 && filterChoice.location.districts.length === locations.find(location => location.area === filterChoice.location.area).districts.length"
-                    class="chosen-num-display-inner"
-                  >
-                    {{ `（已全選）` }}
-                  </span>
-                  <img src="/media/elements/arrow_right.svg" alt="arrow right" width="8px" height="13px" class="arrow-right">
-                  <img src="/media/elements/arrow_right_mint.svg" alt="arrow right" width="8px" height="13px" class="arrow-right-selected">
-                </span>
-                <span
-                  v-if="location.area === filterChoice.location.area && filterChoice.location.districts.length > 0 && filterChoice.location.districts.length !== locations.find(location => location.area === filterChoice.location.area).districts.length"
-                  class="chosen-num-display-outer"
-                >
-                  {{ `（已選擇${filterChoice.location.districts.length}項）` }}
-                </span>
-                <span
-                  v-else-if="location.area === filterChoice.location.area && filterChoice.location.districts.length > 0 && filterChoice.location.districts.length === locations.find(location => location.area === filterChoice.location.area).districts.length"
-                  class="chosen-num-display-outer"
-                >
-                  {{ `（已全選）` }}
-                </span>
-              </li>
-            </ul>
-          </div>
-          <div class="layer-2">
-            <div
-              v-if="filterChoice.location.area && !(filterChoice.location.districts && filterChoice.location.districts.length === locations.find(location => location.area === filterChoice.location.area).districts.length)"
-              class="choose-all"
-              @click="filterSelectionHandler('district', 'all')"
-            >
-              全選
-            </div>
-            <div
-              v-else-if="filterChoice.location.area"
-              class="choose-all-chosen"
-              @click="filterSelectionHandler('district', 'all')"
-            >
-              取消全選
-            </div>
-            <ul class="list">
-              <li v-if="!filterChoice.location.area">
-                請選取區域
-              </li>
-              <li
-                v-for="(district, index) in locations.find(location => location.area === filterChoice.location.area).districts"
-                v-else
-                :key="index"
-                class="item"
-                :class="{ 'chosen' : filterChoice.location.districts.includes(district) }"
-                @click="filterSelectionHandler('district', district)"
-              >
-                {{ district }}
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="time-col">
-          <div class="layer-1">
-            <ul class="list">
-              <li
-                v-for="(date, index) in dates"
-                :key="index" class="item"
-                :class="{ 'chosen' : date.day === filterChoice.date.day }"
-                @click="filterSelectionHandler('day', date.day)"
-              >
-                <span class="d-flex">
-                  {{ date.day }}
-                  <span
-                    v-if="date.day === filterChoice.date.day && filterChoice.date.times.length > 0 && filterChoice.date.times.length !== dates.find(date => date.day === filterChoice.date.day).times.length"
-                    class="chosen-num-display-inner"
-                  >
-                    {{ `（已選擇${filterChoice.date.times.length}項）` }}
-                  </span>
-                  <span
-                    v-else-if="date.day === filterChoice.date.day && filterChoice.date.times.length === dates.find(date => date.day === filterChoice.date.day).times.length"
-                    class="chosen-num-display-inner"
-                  >
-                    {{ `（已全選）` }}
-                  </span>
-                  <img src="/media/elements/arrow_right.svg" alt="arrow right" width="8px" height="13px" class="arrow-right">
-                  <img src="/media/elements/arrow_right_mint.svg" alt="arrow right" width="8px" height="13px" class="arrow-right-selected">
-                </span>
-                <span
-                  v-if="date.day === filterChoice.date.day && filterChoice.date.times.length > 0 && filterChoice.date.times.length !== dates.find(date => date.day === filterChoice.date.day).times.length"
-                  class="chosen-num-display-outer"
-                >
-                  {{ `（已選擇${filterChoice.date.times.length}項）` }}
-                </span>
-                <span
-                  v-else-if="date.day === filterChoice.date.day && filterChoice.date.times.length === dates.find(date => date.day === filterChoice.date.day).times.length"
-                  class="chosen-num-display-outer"
-                >
-                  {{ `（已全選）` }}
-                </span>
-              </li>
-            </ul>
-          </div>
-          <div class="layer-2">
-            <div
-              v-if="filterChoice.date.day && !(filterChoice.date.times && filterChoice.date.times.length === dates.find(date => date.day === filterChoice.date.day).times.length)"
-              class="choose-all"
-              @click="filterSelectionHandler('time', 'all')"
-            >
-              全選
-            </div>
-            <div
-              v-else-if="filterChoice.date.day"
-              class="choose-all-chosen"
-              @click="filterSelectionHandler('time', 'all')"
-            >
-              取消全選
-            </div>
-            <ul class="list">
-              <li v-if="!filterChoice.date.day">
-                請選取日子
-              </li>
-              <li
-                v-for="(time, index) in dates.find(date => date.day === filterChoice.date.day).times"
-                v-else
-                :key="index"
-                class="item"
-                :class="{ 'chosen' : filterChoice.date.times.includes(time) }"
-                @click="filterSelectionHandler('time', time)"
-              >
-                {{ time }}
+                {{ item }}
               </li>
             </ul>
           </div>
@@ -276,7 +130,40 @@
 import filterMixin from '~/mixin/filter'
 export default {
   name: 'HeaderFilter',
-  mixins: [filterMixin]
+  mixins: [filterMixin],
+  data () {
+    return {
+      extendLayer: {
+        subject: '',
+        location: '',
+        date: '',
+        self: this
+      },
+      filterColumns: [
+        {
+          extendLayerKey: 'subject',
+          type: 'subjects',
+          key1: 'level',
+          key2: 'courses',
+          colClass: 'subject-col'
+        },
+        {
+          extendLayerKey: 'location',
+          type: 'locations',
+          key1: 'area',
+          key2: 'districts',
+          colClass: 'location-col'
+        },
+        {
+          extendLayerKey: 'date',
+          type: 'dates',
+          key1: 'day',
+          key2: 'times',
+          colClass: 'time-col'
+        }
+      ]
+    }
+  }
 }
 </script>
 

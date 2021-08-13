@@ -65,18 +65,68 @@ export const state = () => ({
     ]
   },
   filterChoice: {
-    subject: {
-      level: '',
-      courses: []
-    },
-    location: {
-      area: '',
-      districts: []
-    },
-    date: {
-      day: '',
-      times: []
-    },
+    subjects: [
+      {
+        level: '小學',
+        courses: []
+      },
+      {
+        level: '初中',
+        courses: []
+      },
+      {
+        level: '高中',
+        courses: []
+      },
+      {
+        level: '中學數理',
+        courses: []
+      }
+    ],
+    locations: [
+      {
+        area: '港島',
+        districts: []
+      },
+      {
+        area: '九龍',
+        districts: []
+      },
+      {
+        area: '新界',
+        districts: []
+      }
+    ],
+    dates: [
+      {
+        day: '星期一',
+        times: []
+      },
+      {
+        day: '星期二',
+        times: []
+      },
+      {
+        day: '星期三',
+        times: []
+      },
+      {
+        day: '星期四',
+        times: []
+      },
+      {
+        day: '星期五',
+        times: []
+      },
+      {
+        day: '星期六',
+        times: []
+      },
+      {
+        day: '星期日',
+        times: []
+      }
+    ],
     price: [0, 5000],
     searchText: ''
   }
@@ -91,28 +141,32 @@ export const mutations = {
     }
   },
   SET_FILTER (state, data) {
-    if (!data.isPush) {
-      state.filterChoice[data.layer1][data.layer2] = data.val
+    let index = -1
+    let counter = 0
+    for (const obj of state.filterChoice[data.type]) {
+      if (obj[data.key] === data.keyVal) {
+        index = counter
+        break
+      }
+      counter++
+    }
+    if (data.isReplace) {
+      state.filterChoice[data.type][index][data.key2] = data.val
     } else {
-      state.filterChoice[data.layer1][data.layer2].push(data.val)
+      state.filterChoice[data.type][index][data.key2].push(data.val)
     }
   },
   REMOVE_FILTER_ITEM (state, data) {
-    console.log('=====================================================')
-    console.log(data)
-    console.log('=====================================================')
-    if (!data.val) {
-      state.filterChoice[data.type] = ''
-      console.log('=====================================================')
-      console.log('delete search text')
-      console.log('=====================================================')
-    } else {
-      console.log('=====================================================')
-      console.log('filter: ' + data.val)
-      console.log(state.filterChoice[data.type.layer1][data.type.layer2].filter(layer2 => layer2 !== data.val))
-      console.log('=====================================================')
-      state.filterChoice[data.type.layer1][data.type.layer2] = state.filterChoice[data.type.layer1][data.type.layer2].filter(layer2 => layer2 !== data.val)
+    let index = -1
+    let counter = 0
+    for (const obj of state.filterChoice[data.type]) {
+      if (obj[data.key] === data.keyVal) {
+        index = counter
+        break
+      }
+      counter++
     }
+    state.filterChoice[data.type][index][data.key2] = state.filterChoice[data.type][index][data.key2].filter(str => str !== data.val)
   },
   RESET_FILTER (state) {
     state.filterChoice = {

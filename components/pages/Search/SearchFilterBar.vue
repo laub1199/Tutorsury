@@ -139,21 +139,11 @@ export default {
       if (type === 'searchText') {
         this.$store.commit('filter/REMOVE_FILTER_ITEM', { type })
       }
-      console.log('=====================================================')
-      console.log('type: ' + type)
-      console.log('val: ' + val)
-      console.log('=====================================================')
       switch (type) {
         case 'searchText':
-          console.log('=====================================================')
-          console.log('1')
-          console.log('=====================================================')
           this.$store.commit('filter/REMOVE_FILTER_ITEM', { type })
           break
         case 'subject':
-          console.log('=====================================================')
-          console.log('2')
-          console.log('=====================================================')
           val = val.split(this.filterChoice.subject.level)[1]
           this.$store.commit('filter/REMOVE_FILTER_ITEM', {
             type: {
@@ -164,9 +154,6 @@ export default {
           })
           break
         case 'location':
-          console.log('=====================================================')
-          console.log('3')
-          console.log('=====================================================')
           this.$store.commit('filter/REMOVE_FILTER_ITEM', {
             type: {
               layer1: type,
@@ -176,9 +163,6 @@ export default {
           })
           break
         case 'date':
-          console.log('=====================================================')
-          console.log('4')
-          console.log('=====================================================')
           if (val !== '其他') {
             val = val.split(' ')[1]
           }

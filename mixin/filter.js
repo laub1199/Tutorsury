@@ -16,17 +16,15 @@ export default {
     openFilter () {
       return this.$store.getters['filter/openFilter']
     },
-    subjects () {
-      return this.$store.getters['filter/subjects']
-    },
-    locations () {
-      return this.$store.getters['filter/locations']
-    },
-    dates () {
-      return this.$store.getters['filter/dates']
-    },
     filterChoice () {
       return this.$store.getters['filter/filterChoice']
+    },
+    filterDataWrapper () {
+      return {
+        subjects: this.$store.getters['filter/subjects'],
+        locations: this.$store.getters['filter/locations'],
+        dates: this.$store.getters['filter/dates']
+      }
     },
     priceRange: {
       get () {
@@ -49,150 +47,44 @@ export default {
     toggleFilter () {
       this.$store.commit('filter/TOGGLE_FILTER')
     },
-    filterSelectionHandler (type, val) {
-      // subjects
-      if (type === 'level') {
-        if (this.filterChoice.subject.level !== val) {
+    filterSelectionHandler (type, key, keyVal, key2, val) {
+      if (val === 'all') {
+        if ([...this.filterChoice[type].find(obj => obj[key] === keyVal)[key2]].length === [...this[type].find(obj => obj[key] === keyVal)[key2]].length) {
           this.$store.commit('filter/SET_FILTER', {
-            layer1: 'subject',
-            layer2: 'courses',
+            isReplace: true,
+            type,
+            key,
+            keyVal,
+            key2,
             val: []
           })
+        } else {
+          this.$store.commit('filter/SET_FILTER', {
+            isReplace: true,
+            type,
+            key,
+            keyVal,
+            key2,
+            val: this[type].find(obj => obj[key] === keyVal)[key2]
+          })
         }
+      } else if (![...this.filterChoice[type].find(obj => obj[key] === keyVal)[key2]].includes(val)) {
         this.$store.commit('filter/SET_FILTER', {
-          layer1: 'subject',
-          layer2: 'level',
+          isReplace: false,
+          type,
+          key,
+          keyVal,
+          key2,
           val
         })
-        return
-      } else if (type === 'course') {
-        if (val === 'all') {
-          if (this.filterChoice.subject.courses.length === this.subjects.find(subject => subject.level === this.filterChoice.subject.level).courses.length) {
-            this.$store.commit('filter/SET_FILTER', {
-              layer1: 'subject',
-              layer2: 'courses',
-              val: []
-            })
-          } else {
-            this.$store.commit('filter/SET_FILTER', {
-              layer1: 'subject',
-              layer2: 'courses',
-              val: this.subjects.find(subject => subject.level === this.filterChoice.subject.level).courses
-            })
-          }
-        } else if (!this.filterChoice.subject.courses.includes(val)) {
-          this.$store.commit('filter/SET_FILTER', {
-            layer1: 'subject',
-            layer2: 'courses',
-            val,
-            isPush: true
-          })
-        } else {
-          this.$store.commit('filter/SET_FILTER', {
-            layer1: 'subject',
-            layer2: 'courses',
-            val: this.filterChoice.subject.courses.filter(course => course !== val)
-          })
-        }
-        return
-      }
-
-      // locations
-      if (type === 'area') {
-        if (this.filterChoice.location.area !== val) {
-          this.$store.commit('filter/SET_FILTER', {
-            layer1: 'location',
-            layer2: 'districts',
-            val: []
-          })
-        }
-        this.$store.commit('filter/SET_FILTER', {
-          layer1: 'location',
-          layer2: 'area',
+      } else {
+        this.$store.commit('filter/REMOVE_FILTER_ITEM', {
+          type,
+          key,
+          keyVal,
+          key2,
           val
         })
-      } else if (type === 'district') {
-        if (val === 'all') {
-          if (this.filterChoice.location.districts.length === this.locations.find(location => location.area === this.filterChoice.location.area).districts.length) {
-            this.$store.commit('filter/SET_FILTER', {
-              layer1: 'location',
-              layer2: 'districts',
-              val: []
-            })
-          } else {
-            this.$store.commit('filter/SET_FILTER', {
-              layer1: 'location',
-              layer2: 'districts',
-              val: this.locations.find(location => location.area === this.filterChoice.location.area).districts
-            })
-          }
-        } else if (!this.filterChoice.location.districts.includes(val)) {
-          this.$store.commit('filter/SET_FILTER', {
-            layer1: 'location',
-            layer2: 'districts',
-            val,
-            isPush: true
-          })
-        } else {
-          this.$store.commit('filter/SET_FILTER', {
-            layer1: 'location',
-            layer2: 'districts',
-            val: this.filterChoice.location.districts.filter(district => district !== val)
-          })
-        }
-      }
-
-      // dates
-      if (type === 'day') {
-        if (val === 'all') {
-          this.$store.commit('filter/SET_FILTER', {
-            layer1: 'date',
-            layer2: 'day',
-            val: ''
-          })
-        } else {
-          if (this.filterChoice.date.day !== val) {
-            this.$store.commit('filter/SET_FILTER', {
-              layer1: 'date',
-              layer2: 'times',
-              val: []
-            })
-          }
-          this.$store.commit('filter/SET_FILTER', {
-            layer1: 'date',
-            layer2: 'day',
-            val
-          })
-        }
-      } else if (type === 'time') {
-        if (val === 'all') {
-          if (this.filterChoice.date.times.length === this.dates.find(date => date.day === this.filterChoice.date.day).times.length) {
-            this.$store.commit('filter/SET_FILTER', {
-              layer1: 'date',
-              layer2: 'times',
-              val: []
-            })
-          } else {
-            this.$store.commit('filter/SET_FILTER', {
-              layer1: 'date',
-              layer2: 'times',
-              val: this.dates.find(date => date.day === this.filterChoice.date.day).times
-            })
-          }
-        } else if (!this.filterChoice.date.times.includes(val)) {
-          this.$store.commit('filter/SET_FILTER', {
-            layer1: 'date',
-            layer2: 'times',
-            val,
-            isPush: true
-          })
-        } else {
-          this.$store.commit('filter/SET_FILTER', {
-            layer1: 'date',
-            layer2: 'times',
-            val: this.filterChoice.date.times.filter(time => time !== val)
-          })
-        }
       }
     },
     filterReset () {
