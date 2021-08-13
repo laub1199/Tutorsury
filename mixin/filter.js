@@ -100,20 +100,32 @@ export default {
 
       // create subject query
       let index = 0
-      for (const course of this.filterChoice.subject.courses) {
-        query.subject += `${index++ > 0 ? '.' : ''}${this.filterChoice.subject.level}${course}`
+      for (const subject of this.filterChoice.subjects) {
+        if (subject.courses.length > 0) {
+          for (const course of subject.courses) {
+            query.subject += `${index++ > 0 ? '.' : ''}${subject.level}${course}`
+          }
+        }
       }
 
-      // create subject query
+      // create location query
       index = 0
-      for (const district of this.filterChoice.location.districts) {
-        query.location += `${index++ > 0 ? '.' : ''}${district}`
+      for (const location of this.filterChoice.locations) {
+        if (location.districts.length > 0) {
+          for (const district of location.districts) {
+            query.location += `${index++ > 0 ? '.' : ''}${district}`
+          }
+        }
       }
 
-      // create subject query
+      // create date query
       index = 0
-      for (const time of this.filterChoice.date.times) {
-        query.date += `${index++ > 0 ? '.' : ''}${this.filterChoice.date.day} ${time}`
+      for (const date of this.filterChoice.dates) {
+        if (date.times.length > 0) {
+          for (const time of date.times) {
+            query.date += `${index++ > 0 ? '.' : ''}${date.day} ${time}`
+          }
+        }
       }
 
       this.$router.push({
