@@ -152,7 +152,7 @@ export const mutations = {
     }
     if (data.isReplace) {
       state.filterChoice[data.type][index][data.key2] = data.val
-    } else {
+    } else if (!state.filterChoice[data.type][index][data.key2].includes(data.val)) {
       state.filterChoice[data.type][index][data.key2].push(data.val)
     }
   },
