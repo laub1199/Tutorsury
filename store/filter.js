@@ -157,16 +157,20 @@ export const mutations = {
     }
   },
   REMOVE_FILTER_ITEM (state, data) {
-    let index = -1
-    let counter = 0
-    for (const obj of state.filterChoice[data.type]) {
-      if (obj[data.key] === data.keyVal) {
-        index = counter
-        break
+    if (data.type === 'searchText') {
+      state.filterChoice.searchText = ''
+    } else {
+      let index = -1
+      let counter = 0
+      for (const obj of state.filterChoice[data.type]) {
+        if (obj[data.key] === data.keyVal) {
+          index = counter
+          break
+        }
+        counter++
       }
-      counter++
+      state.filterChoice[data.type][index][data.key2] = state.filterChoice[data.type][index][data.key2].filter(str => str !== data.val)
     }
-    state.filterChoice[data.type][index][data.key2] = state.filterChoice[data.type][index][data.key2].filter(str => str !== data.val)
   },
   RESET_FILTER (state) {
     state.filterChoice = {

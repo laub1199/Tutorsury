@@ -2,7 +2,7 @@
   <div class="search-filter-bar">
     <div class="content">
       <div class="d-flex w-100">
-        <div class="category d-flex">
+        <div class="category">
           <p class="category-name">
             關鍵字
           </p>
@@ -17,7 +17,7 @@
             </div>
           </div>
         </div>
-        <div class="category d-flex">
+        <div class="category">
           <p class="category-name">
             科目
           </p>
@@ -34,7 +34,7 @@
             </div>
           </div>
         </div>
-        <div class="category d-flex">
+        <div class="category">
           <p class="category-name">
             地區
           </p>
@@ -51,7 +51,7 @@
             </div>
           </div>
         </div>
-        <div class="category d-flex">
+        <div class="category">
           <p class="category-name">
             時間
           </p>
@@ -136,45 +136,49 @@ export default {
   },
   methods: {
     deleteFilterItem (type, val) {
-      if (type === 'searchText') {
-        this.$store.commit('filter/REMOVE_FILTER_ITEM', { type })
-      }
       switch (type) {
         case 'searchText':
           this.$store.commit('filter/REMOVE_FILTER_ITEM', { type })
           break
         case 'subject':
-          val = val.split(this.filterChoice.subject.level)[1]
-          this.$store.commit('filter/REMOVE_FILTER_ITEM', {
-            type: {
-              layer1: type,
-              layer2: 'courses'
-            },
-            val
-          })
+          for (const obj of this.$store.getters['filter/subjects']) {
+            if (val.includes(obj.level)) {
+              this.$store.commit('filter/REMOVE_FILTER_ITEM', {
+                type: 'subjects',
+                key: 'level',
+                keyVal: obj.level,
+                key2: 'courses',
+                val: val.split(obj.level)[1]
+              })
+              break
+            }
+          }
           break
         case 'location':
-          this.$store.commit('filter/REMOVE_FILTER_ITEM', {
-            type: {
-              layer1: type,
-              layer2: 'districts'
-            },
-            val
-          })
+          for (const location of this.$store.getters['filter/locations']) {
+            if (location.districts.includes(val)) {
+              this.$store.commit('filter/REMOVE_FILTER_ITEM', {
+                type: 'locations',
+                key: 'area',
+                keyVal: location.area,
+                key2: 'districts',
+                val
+              })
+              break
+            }
+          }
           break
         case 'date':
-          if (val !== '其他') {
-            val = val.split(' ')[1]
-          }
           this.$store.commit('filter/REMOVE_FILTER_ITEM', {
-            type: {
-              layer1: type,
-              layer2: 'times'
-            },
-            val
+            type: 'dates',
+            key: 'day',
+            keyVal: val.split(' ')[0],
+            key2: 'times',
+            val: val.split(' ')[1]
           })
           break
       }
+
       const query = {
         q: this.filterChoice.searchText,
         subject: '',
@@ -184,20 +188,32 @@ export default {
 
       // create subject query
       let index = 0
-      for (const course of this.filterChoice.subject.courses) {
-        query.subject += `${index++ > 0 ? '.' : ''}${this.filterChoice.subject.level}${course}`
+      for (const subject of this.filterChoice.subjects) {
+        if (subject.courses.length > 0) {
+          for (const course of subject.courses) {
+            query.subject += `${index++ > 0 ? '.' : ''}${subject.level}${course}`
+          }
+        }
       }
 
-      // create subject query
+      // create location query
       index = 0
-      for (const district of this.filterChoice.location.districts) {
-        query.location += `${index++ > 0 ? '.' : ''}${district}`
+      for (const location of this.filterChoice.locations) {
+        if (location.districts.length > 0) {
+          for (const district of location.districts) {
+            query.location += `${index++ > 0 ? '.' : ''}${district}`
+          }
+        }
       }
 
-      // create subject query
+      // create date query
       index = 0
-      for (const time of this.filterChoice.date.times) {
-        query.date += `${index++ > 0 ? '.' : ''}${this.filterChoice.date.day} ${time}`
+      for (const date of this.filterChoice.dates) {
+        if (date.times.length > 0) {
+          for (const time of date.times) {
+            query.date += `${index++ > 0 ? '.' : ''}${date.day} ${time}`
+          }
+        }
       }
 
       this.$router.push({
@@ -218,7 +234,11 @@ export default {
     margin: 0 auto;
     .category {
       margin-right: 35px;
-      width: 20%;
+      width: 19%;
+      display: flex;
+      @media screen and (max-width: 1152px) {
+        display: none;
+      }
       .category-list {
         flex-flow: column;
       }
@@ -281,6 +301,13 @@ export default {
     }
     .rank-control {
       flex: 1;
+      & > div {
+        justify-content: flex-start;
+        @media screen and (max-width: 1152px) {
+          justify-content: flex-end;
+          padding: 0 20px;
+        }
+      }
       .rank-title {
         font-weight: bold;
         font-size: 18px;
