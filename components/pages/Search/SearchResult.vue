@@ -5,22 +5,32 @@
         <div v-for="(item, index) in items" :key="index" class="product-item">
           <nuxt-link :to="item.link">
             <div class="product-image">
-              <img src="/media/Tutorsury_logo.png" alt="Logo">
+              <img src="/media/Tutorsury_logo.png" alt="Logo" width="624" height="168">
             </div>
             <div class="product-content">
               <div class="product-top">
-                <div class="details">
-                  <p class="subject">
-                    {{ item.subject }}
-                  </p>
-                  <p class="center-name">
-                    {{ item.centre }}
-                  </p>
-                </div>
-                <div class="districts">
-                  <div v-for="(district, dIndex) in item.districts" :key="dIndex" class="district">
-                    {{ district }}
+                <div class="product-logo-container">
+                  <div class="product-logo">
+                    <img src="/media/Tutorsury_logo.png" alt="Logo" height="168" width="624">
                   </div>
+                </div>
+                <div class="product-top-content">
+                  <div class="details">
+                    <p class="subject">
+                      {{ item.subject }}
+                    </p>
+                    <p class="center-name">
+                      {{ item.centre }}
+                    </p>
+                  </div>
+                  <div class="districts">
+                    <div v-for="(district, dIndex) in item.districts" :key="dIndex" class="district">
+                      {{ district }}
+                    </div>
+                  </div>
+                </div>
+                <div class="star-container">
+                  <img src="/media/elements/star.svg" alt="star" width="34" height="30">
                 </div>
               </div>
               <div class="product-courses">
@@ -59,7 +69,7 @@
               <p class="discount">
                 {{ item.discount }}
               </p>
-              <img src="/media/elements/star.svg" alt="star">
+              <img src="/media/elements/star.svg" alt="star" width="34" height="30">
             </div>
           </nuxt-link>
         </div>
@@ -287,6 +297,10 @@ export default {
         @media screen and (max-width: 1010px) {
           width: 50%;
         }
+        @media screen and (max-width: 768px) {
+          width: 100%;
+          margin-bottom: 30px;
+        }
         a {
           border-radius: 20px;
           overflow: hidden;
@@ -299,6 +313,9 @@ export default {
             align-items: center;
             justify-content: center;
             padding: 3rem 10%;
+            @media screen and (max-width: 768px) {
+              display: none;
+            }
             img {
               width: 100%;
               height: auto;
@@ -306,37 +323,100 @@ export default {
           }
           .product-content {
             padding: 20px 20px 0;
+            @media screen and (max-width: 768px) {
+              padding: 20px 20px 10px;
+            }
             .product-top {
               display: flex;
-              .details {
-                width: 60%;
-                .subject {
-                  color: #55606E;
-                  font-weight: bold;
-                  font-size: 30px;
-                  line-height: 35px;
-                  margin-bottom: 0;
+              @media screen and (max-width: 768px) {
+                margin-bottom: 12px;
+              }
+              .product-logo-container {
+                display: none;
+                @media screen and (max-width: 768px) {
+                  display: flex;
+                  margin-right: 15px;
                 }
-                .center-name {
-                  font-size: 20px;
-                  line-height: 23px;
-                  color: #343A41;
+                .product-logo {
+                  display: flex;
+                  background-color: #212F3D;
+                  height: 60px;
+                  width: 60px;
+                  border-radius: 60px;
+                  justify-content: center;
+                  align-items: center;
+                  img {
+                    width: 80%;
+                  }
                 }
               }
-              .districts {
-                width: 40%;
+              .product-top-content {
                 display: flex;
-                flex-direction: column;
-                align-items: flex-end;
-                .district {
-                  border: 1px solid #55606E;
-                  box-sizing: border-box;
-                  border-radius: 30px;
-                  font-size: 14px;
-                  line-height: 16px;
-                  color: #55606E;
-                  padding: 2px 8px;
-                  margin-bottom: 5px;
+                @media screen and (max-width: 768px) {
+                  flex-direction: column;
+                  flex: 1;
+                }
+                .details {
+                  width: 60%;
+                  @media screen and (max-width: 768px) {
+                    width: 100%;
+                  }
+                  .subject {
+                    color: #55606E;
+                    font-weight: bold;
+                    font-size: 30px;
+                    line-height: 35px;
+                    margin-bottom: 0;
+                    @media screen and (max-width: 768px) {
+                      font-size: 22px;
+                      line-height: 26px;
+                    }
+                  }
+                  .center-name {
+                    font-size: 20px;
+                    line-height: 23px;
+                    color: #343A41;
+                    margin-bottom: 0;
+                    @media screen and (max-width: 768px) {
+                      font-size: 13px;
+                      line-height: 15px;
+                      margin-bottom: 8px;
+                    }
+                  }
+                }
+                .districts {
+                  width: 40%;
+                  display: flex;
+                  flex-direction: column;
+                  align-items: flex-end;
+                  @media screen and (max-width: 768px) {
+                    flex-direction: row;
+                    width: 100%;
+                  }
+                  .district {
+                    border: 1px solid #55606E;
+                    box-sizing: border-box;
+                    border-radius: 30px;
+                    font-size: 14px;
+                    line-height: 16px;
+                    color: #55606E;
+                    padding: 2px 8px;
+                    margin-bottom: 5px;
+                    @media screen and (max-width: 768px) {
+                      margin: 0 5px 0 0;
+                    }
+                  }
+                }
+              }
+              .star-container {
+                display: none;
+                width: 30px;
+                align-items: flex-start;
+                @media screen and (max-width: 768px) {
+                  display: flex;
+                }
+                img {
+                  width: 100%;
                 }
               }
             }
@@ -418,6 +498,9 @@ export default {
             padding: 10px 20px;
             display: flex;
             justify-content: space-between;
+            @media screen and (max-width: 768px) {
+              display: none;
+            }
             .discount {
               font-weight: bold;
               font-size: 15px;
