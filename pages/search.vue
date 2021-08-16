@@ -2,6 +2,7 @@
   <div class="search-page">
     <SearchHero />
     <SearchFilterBar :queries="queries" />
+    <SearchResult />
   </div>
 </template>
 
@@ -10,7 +11,8 @@ export default {
   name: 'SearchPage',
   components: {
     SearchHero: () => import('~/components/pages/Search/SearchHero'),
-    SearchFilterBar: () => import('~/components/pages/Search/SearchFilterBar')
+    SearchFilterBar: () => import('~/components/pages/Search/SearchFilterBar'),
+    SearchResult: () => import('~/components/pages/Search/SearchResult')
   },
   asyncData ({ store, route }) {
     const query = route.query
