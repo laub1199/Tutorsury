@@ -1,7 +1,7 @@
 <template>
   <div v-if="lastPage > 1" class="search-pagination">
     <div class="pagination-container">
-      <div class="pagination-btn">
+      <div class="pagination-btn hover-disable">
         <img src="/media/elements/pagination_left.svg" alt="left arrow button" height="25" width="15">
       </div>
       <div v-for="index in 3" :key="`s${index}`" class="pagination-btn hover-disable" :class="{ 'active': currentPage === index, 'd-none': currentPage > 3 || index > lastPage}">
