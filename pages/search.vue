@@ -2,7 +2,8 @@
   <div class="search-page">
     <SearchHero />
     <SearchFilterBar :queries="queries" />
-    <SearchResult />
+    <SearchResult :items="items" />
+    <SearchPagination :current-page="currentPage" :last-page="lastPage" />
   </div>
 </template>
 
@@ -12,7 +13,8 @@ export default {
   components: {
     SearchHero: () => import('~/components/pages/Search/SearchHero'),
     SearchFilterBar: () => import('~/components/pages/Search/SearchFilterBar'),
-    SearchResult: () => import('~/components/pages/Search/SearchResult')
+    SearchResult: () => import('~/components/pages/Search/SearchResult'),
+    SearchPagination: () => import('~/components/pages/Search/SearchPagination')
   },
   asyncData ({ store, route }) {
     const query = route.query
@@ -75,9 +77,205 @@ export default {
       }
     }
   },
+  data () {
+    return {
+      items: [
+        {
+          logo: '',
+          subject: '初中英文',
+          centre: 'Tutorsury Education Centre',
+          districts: ['屯門區', '荃灣區', '深水埗區'],
+          courses: [
+            {
+              name: '堂規補習課程',
+              tags: ['輕鬆', '補底']
+            },
+            {
+              name: '作文精讀課程',
+              tags: ['嚴格', '拔尖']
+            },
+            {
+              name: '文法速成精華課程',
+              tags: ['嚴格', '補底']
+            }
+          ],
+          link: '/xxx',
+          price: '$1000-3000',
+          discount: '９折優惠！'
+        },
+        {
+          logo: '',
+          subject: '初中英文',
+          centre: 'Tutorsury Education Centre',
+          districts: ['屯門區', '荃灣區', '深水埗區'],
+          courses: [
+            {
+              name: '堂規補習課程',
+              tags: ['輕鬆', '補底']
+            },
+            {
+              name: '作文精讀課程',
+              tags: ['嚴格', '拔尖']
+            },
+            {
+              name: '文法速成精華課程',
+              tags: ['嚴格', '補底']
+            }
+          ],
+          link: '/xxx',
+          price: '$1000-3000',
+          discount: '９折優惠！'
+        },
+        {
+          logo: '',
+          subject: '初中英文',
+          centre: 'Tutorsury Education Centre',
+          districts: ['屯門區', '荃灣區', '深水埗區'],
+          courses: [
+            {
+              name: '堂規補習課程',
+              tags: ['輕鬆', '補底']
+            },
+            {
+              name: '作文精讀課程',
+              tags: ['嚴格', '拔尖']
+            },
+            {
+              name: '文法速成精華課程',
+              tags: ['嚴格', '補底']
+            }
+          ],
+          link: '/xxx',
+          price: '$1000-3000',
+          discount: '９折優惠！'
+        },
+        {
+          logo: '',
+          subject: '初中英文',
+          centre: 'Tutorsury Education Centre',
+          districts: ['屯門區', '荃灣區', '深水埗區'],
+          courses: [
+            {
+              name: '堂規補習課程',
+              tags: ['輕鬆', '補底']
+            },
+            {
+              name: '作文精讀課程',
+              tags: ['嚴格', '拔尖']
+            },
+            {
+              name: '文法速成精華課程',
+              tags: ['嚴格', '補底']
+            }
+          ],
+          link: '/xxx',
+          price: '$1000-3000',
+          discount: '９折優惠！'
+        },
+        {
+          logo: '',
+          subject: '初中英文',
+          centre: 'Tutorsury Education Centre',
+          districts: ['屯門區', '荃灣區', '深水埗區'],
+          courses: [
+            {
+              name: '堂規補習課程',
+              tags: ['輕鬆', '補底']
+            },
+            {
+              name: '作文精讀課程',
+              tags: ['嚴格', '拔尖']
+            },
+            {
+              name: '文法速成精華課程',
+              tags: ['嚴格', '補底']
+            }
+          ],
+          link: '/xxx',
+          price: '$1000-3000',
+          discount: '９折優惠！'
+        },
+        {
+          logo: '',
+          subject: '初中英文',
+          centre: 'Tutorsury Education Centre',
+          districts: ['屯門區', '荃灣區', '深水埗區'],
+          courses: [
+            {
+              name: '堂規補習課程',
+              tags: ['輕鬆', '補底']
+            },
+            {
+              name: '作文精讀課程',
+              tags: ['嚴格', '拔尖']
+            },
+            {
+              name: '文法速成精華課程',
+              tags: ['嚴格', '補底']
+            }
+          ],
+          link: '/xxx',
+          price: '$1000-3000',
+          discount: '９折優惠！'
+        },
+        {
+          logo: '',
+          subject: '初中英文',
+          centre: 'Tutorsury Education Centre',
+          districts: ['屯門區', '荃灣區', '深水埗區'],
+          courses: [
+            {
+              name: '堂規補習課程',
+              tags: ['輕鬆', '補底']
+            },
+            {
+              name: '作文精讀課程',
+              tags: ['嚴格', '拔尖']
+            },
+            {
+              name: '文法速成精華課程',
+              tags: ['嚴格', '補底']
+            }
+          ],
+          link: '/xxx',
+          price: '$1000-3000',
+          discount: '９折優惠！'
+        },
+        {
+          logo: '',
+          subject: '初中英文',
+          centre: 'Tutorsury Education Centre',
+          districts: ['屯門區', '荃灣區', '深水埗區'],
+          courses: [
+            {
+              name: '堂規補習課程',
+              tags: ['輕鬆', '補底']
+            },
+            {
+              name: '作文精讀課程',
+              tags: ['嚴格', '拔尖']
+            },
+            {
+              name: '文法速成精華課程',
+              tags: ['嚴格', '補底']
+            }
+          ],
+          link: '/xxx',
+          price: '$1000-3000',
+          discount: '９折優惠！'
+        }
+      ]
+    }
+  },
   computed: {
     queries () {
       return this.$route.query
+    },
+    currentPage () {
+      return (this.$route.query.page || 1) > this.lastPage ? this.lastPage : (this.$route.query.page || 1)
+    },
+    lastPage () {
+      return parseInt(this.items.length / 12) + (this.items.length % 12 > 0 ? 1 : 0)
     }
   }
 }

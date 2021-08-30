@@ -186,6 +186,10 @@ export default {
         date: ''
       }
 
+      if (!query.q) {
+        delete query.q
+      }
+
       // create subject query
       let index = 0
       for (const subject of this.filterChoice.subjects) {
@@ -194,6 +198,10 @@ export default {
             query.subject += `${index++ > 0 ? '.' : ''}${subject.level}${course}`
           }
         }
+      }
+
+      if (!query.subject) {
+        delete query.subject
       }
 
       // create location query
@@ -206,6 +214,10 @@ export default {
         }
       }
 
+      if (!query.location) {
+        delete query.location
+      }
+
       // create date query
       index = 0
       for (const date of this.filterChoice.dates) {
@@ -214,6 +226,10 @@ export default {
             query.date += `${index++ > 0 ? '.' : ''}${date.day} ${time}`
           }
         }
+      }
+
+      if (!query.date) {
+        delete query.date
       }
 
       this.$router.push({
