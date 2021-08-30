@@ -352,12 +352,13 @@ export default {
               }
               .product-top-content {
                 display: flex;
+                flex: 1;
+                margin-bottom: 5px;
                 @media screen and (max-width: 768px) {
                   flex-direction: column;
-                  flex: 1;
                 }
                 .details {
-                  width: 60%;
+                  flex: 1;
                   @media screen and (max-width: 768px) {
                     width: 100%;
                   }
@@ -385,7 +386,7 @@ export default {
                   }
                 }
                 .districts {
-                  width: 40%;
+                  min-width: fit-content;
                   display: flex;
                   flex-direction: column;
                   align-items: flex-end;
