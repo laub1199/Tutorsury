@@ -1,6 +1,6 @@
 <template>
   <div class="search-page">
-    <SearchHero />
+    <SearchHero :current-page="currentPage" :last-page="lastPage" :item-per-page="itemPerPage" :num-of-result="items.length" />
     <SearchFilterBar :queries="queries" />
     <SearchResult :items="items" />
     <SearchPagination :current-page="currentPage" :last-page="lastPage" />
@@ -79,6 +79,7 @@ export default {
   },
   data () {
     return {
+      itemPerPage: 12,
       items: [
         {
           logo: '',
@@ -275,7 +276,7 @@ export default {
       return (this.$route.query.page || 1) > this.lastPage ? this.lastPage : (this.$route.query.page || 1)
     },
     lastPage () {
-      return parseInt(this.items.length / 12) + (this.items.length % 12 > 0 ? 1 : 0)
+      return parseInt(this.items.length / this.itemPerPage) + (this.items.length % this.itemPerPage > 0 ? 1 : 0)
     }
   }
 }

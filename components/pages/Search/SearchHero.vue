@@ -3,10 +3,10 @@
     <div class="container">
       <div class="content">
         <h1 class="result">
-          搵到281個結果
+          {{ `搵到${numOfResult}個結果` }}
         </h1>
         <p class="range">
-          第1-12個結果：
+          {{ `第${(currentPage - 1) * itemPerPage + 1}-${currentPage >= lastPage ? numOfResult : currentPage * itemPerPage}個結果：` }}
         </p>
       </div>
     </div>
@@ -15,7 +15,25 @@
 
 <script>
 export default {
-  name: 'SearchHero'
+  name: 'SearchHero',
+  props: {
+    currentPage: {
+      type: Number,
+      default: 1
+    },
+    lastPage: {
+      type: Number,
+      default: 2
+    },
+    itemPerPage: {
+      type: Number,
+      default: 12
+    },
+    numOfResult: {
+      type: Number,
+      default: 12
+    }
+  }
 }
 </script>
 
