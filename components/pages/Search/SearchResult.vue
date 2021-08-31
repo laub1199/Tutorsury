@@ -1,77 +1,79 @@
 <template>
   <div class="search-result">
     <div class="content">
-      <div v-if="items && items.length > 0" class="product-list d-flex">
+      <div class="product-list d-flex">
         <div v-for="(item, index) in items" :key="index" class="product-item">
-          <nuxt-link :to="item.link">
-            <div class="product-image">
+          <div class="product-wrapper">
+            <nuxt-link :to="item.link" class="product-image">
               <img src="/media/Tutorsury_logo.png" alt="Logo" width="624" height="168">
-            </div>
-            <div class="product-content">
-              <div class="product-top">
-                <div class="product-logo-container">
-                  <div class="product-logo">
-                    <img src="/media/Tutorsury_logo.png" alt="Logo" height="168" width="624">
+            </nuxt-link>
+            <nuxt-link :to="item.link">
+              <div class="product-content">
+                <div class="product-top">
+                  <div class="product-logo-container">
+                    <div class="product-logo">
+                      <img src="/media/Tutorsury_logo.png" alt="Logo" height="168" width="624">
+                    </div>
+                  </div>
+                  <div class="product-top-content">
+                    <div class="details">
+                      <p class="subject">
+                        {{ item.subject }}
+                      </p>
+                      <p class="center-name">
+                        {{ item.centre }}
+                      </p>
+                    </div>
+                    <div class="districts">
+                      <div v-for="(district, dIndex) in item.districts" :key="dIndex" class="district">
+                        {{ district }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="star-container">
+                    <img src="/media/elements/star.svg" alt="star" width="34" height="30">
                   </div>
                 </div>
-                <div class="product-top-content">
-                  <div class="details">
-                    <p class="subject">
-                      {{ item.subject }}
+                <div class="product-courses">
+                  <div v-for="(course, cIndex) in item.courses" :key="cIndex" class="course">
+                    <p class="course-name">
+                      {{ course.name }}
                     </p>
-                    <p class="center-name">
-                      {{ item.centre }}
-                    </p>
-                  </div>
-                  <div class="districts">
-                    <div v-for="(district, dIndex) in item.districts" :key="dIndex" class="district">
-                      {{ district }}
+                    <div class="tags">
+                      <p
+                        v-for="(tag, tIndex) in course.tags"
+                        :key="tIndex"
+                        class="tag"
+                        :class="{
+                          'easy': tag === '輕鬆',
+                          'make-up': tag === '補底',
+                          'elite': tag === '拔尖',
+                          'strict': tag === '嚴格'
+                        }"
+                      >
+                        {{ tag }}
+                      </p>
                     </div>
                   </div>
                 </div>
-                <div class="star-container">
-                  <img src="/media/elements/star.svg" alt="star" width="34" height="30">
-                </div>
-              </div>
-              <div class="product-courses">
-                <div v-for="(course, cIndex) in item.courses" :key="cIndex" class="course">
-                  <p class="course-name">
-                    {{ course.name }}
+                <div class="product-catalog">
+                  <p class="price-range">
+                    {{ item.price }}
                   </p>
-                  <div class="tags">
-                    <p
-                      v-for="(tag, tIndex) in course.tags"
-                      :key="tIndex"
-                      class="tag"
-                      :class="{
-                        'easy': tag === '輕鬆',
-                        'make-up': tag === '補底',
-                        'elite': tag === '拔尖',
-                        'strict': tag === '嚴格'
-                      }"
-                    >
-                      {{ tag }}
-                    </p>
+                  <div class="more">
+                    <span>查看更多</span>
+                    <img src="/media/elements/arrow_right_extend.svg" alt="arrow right extend" width="22" height="16">
                   </div>
                 </div>
               </div>
-              <div class="product-catalog">
-                <p class="price-range">
-                  {{ item.price }}
-                </p>
-                <div class="more">
-                  <span>查看更多</span>
-                  <img src="/media/elements/arrow_right_extend.svg" alt="arrow right extend" width="22" height="16">
-                </div>
-              </div>
-            </div>
+            </nuxt-link>
             <div class="product-bottom">
               <p class="discount">
                 {{ item.discount }}
               </p>
               <img src="/media/elements/star.svg" alt="star" width="34" height="30">
             </div>
-          </nuxt-link>
+          </div>
         </div>
       </div>
     </div>
@@ -94,6 +96,9 @@ export default {
 .search-result {
   width: 100%;
   margin-top: 40px;
+  a {
+    text-decoration: none;
+  }
   .content {
     max-width: 1800px;
     width: 100%;
@@ -117,7 +122,7 @@ export default {
           width: 100%;
           margin-bottom: 30px;
         }
-        a {
+        .product-wrapper {
           border-radius: 20px;
           overflow: hidden;
           -webkit-box-shadow: 0 0 6px 6px rgba(0,0,0,0.1);
@@ -168,8 +173,6 @@ export default {
               }
               .product-top-content {
                 display: flex;
-                flex: 1;
-                margin-bottom: 5px;
                 @media screen and (max-width: 768px) {
                   flex-direction: column;
                 }
